@@ -11,7 +11,7 @@ pygame.display.set_caption('Quick Start')
 window_surface = pygame.display.set_mode(SCREEN_DIMENSIONS)
 
 background = pygame.Surface(SCREEN_DIMENSIONS)
-background.fill(pygame.Color('#000000'))
+background.fill(pygame.Color('#FFFFFF'))
 
 # set 
 ui_manager = pygame_gui.UIManager(SCREEN_DIMENSIONS, "theme.json")
@@ -24,14 +24,14 @@ hello_button = pygame_gui.elements.UIButton(relative_rect=pygame.Rect((350, 275)
 
 # defines the toolbar ui layout
 class Toolbar:
-    def __init__(self, manager: pygame_gui.UIManager, rect: pygame.Rect) -> None:
+    def __init__(self, manager) -> None:
         self.panel = pygame_gui.elements.UIPanel(
-            relative_rect=rect, manager=manager, starting_layer_height=1
+                    relative_rect=pygame.Rect(0, SCREEN_DIMENSIONS[1] - 100, SCREEN_DIMENSIONS[0], 100), 
+                    manager=manager, starting_layer_height=1
         )
 
-
-toobar = Toolbar(ui_manager, pygame.Rect(0, SCREEN_DIMENSIONS[0] - 40, SCREEN_DIMENSIONS[1], 40))
-
+# initialize the toolbar
+toolbar = Toolbar(ui_manager)
 
 
 clock = pygame.time.Clock()
