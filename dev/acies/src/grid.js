@@ -26,13 +26,13 @@ class Grid {
 
             // fill column with points
             for (let j = 0; j < height; j++) {
-                let p = new GridPoint(i * pointSpacing, j * pointSpacing);
-                arr[j] = p;
+                // create grid point at index * spacing
+                let p = new GridPoint((i * pointSpacing) + pointSpacing, (j * pointSpacing) + pointSpacing); 
+                columnArray[j] = p;
             }
 
             arr[i] = columnArray;
         }
-
         // finally, set point array
         this.pointArray = arr;
     }
@@ -45,6 +45,8 @@ class Grid {
 
             // setup fill color
             ctx.fillStyle = '#000000';
+
+            console.log(this.pointArray);
 
             // loop thru all points and draw
             for (let x = 0; x < this.pointArray.length; x++) {

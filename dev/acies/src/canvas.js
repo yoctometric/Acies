@@ -22,10 +22,10 @@ const Canvas = props => {
         const context = canvas.getContext('2d')
 
         draw(context)
-        
+
     }, [draw])
     
-    return <canvas ref={canvasRef} {...rest}/>
+    return <canvas ref={canvasRef} className="canvas" {...rest}/>
   }
   
 

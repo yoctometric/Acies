@@ -26,12 +26,12 @@ This is the main element of the app and contains the high-level layout of all ot
 class App extends React.Component {
 
   render() {
-    const grid = new Grid(10, 10, 10, 4);
+    const grid = new Grid(40, 40, 20, 3);
 
     const draw = grid.draw()
     return (
       <div className='app'>
-        <Canvas draw={draw} />
+        <Canvas draw={draw} width="1000" height="1000" />
         <ToolBar />
         <SideBar />
       </div>
