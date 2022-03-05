@@ -7,7 +7,7 @@ SCREEN_DIMENSIONS = (800, 600)
 
 pygame.init()
 
-pygame.display.set_caption('Quick Start')
+pygame.display.set_caption('Acies')
 window_surface = pygame.display.set_mode(SCREEN_DIMENSIONS)
 
 background = pygame.Surface(SCREEN_DIMENSIONS)
