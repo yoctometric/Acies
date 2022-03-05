@@ -1,0 +1,61 @@
+<diagram program="umletino" version="14.4.0-SNAPSHOT"><zoom_level>10</zoom_level><help_text>&lt;diagram program="umletino" version="14.4.0-SNAPSHOT"&gt;&lt;zoom_level&gt;10&lt;/zoom_level&gt;&lt;element&gt;&lt;id&gt;Relation&lt;/id&gt;&lt;coordinates&gt;&lt;x&gt;240&lt;/x&gt;&lt;y&gt;170&lt;/y&gt;&lt;w&gt;190&lt;/w&gt;&lt;h&gt;30&lt;/h&gt;&lt;/coordinates&gt;&lt;panel_attributes&gt;lt=&amp;lt;..&lt;/panel_attributes&gt;&lt;additional_attributes&gt;10;10;170;10&lt;/additional_attributes&gt;&lt;/element&gt;&lt;/diagram&gt;&lt;diagram program="umletino" version="14.4.0-SNAPSHOT"&gt;&lt;zoom_level&gt;10&lt;/zoom_level&gt;&lt;element&gt;&lt;id&gt;Relation&lt;/id&gt;&lt;coordinates&gt;&lt;x&gt;50&lt;/x&gt;&lt;y&gt;450&lt;/y&gt;&lt;w&gt;30&lt;/w&gt;&lt;h&gt;60&lt;/h&gt;&lt;/coordinates&gt;&lt;panel_attributes&gt;lt=&amp;lt;&amp;lt;-&lt;/panel_attributes&gt;&lt;additional_attributes&gt;10;10;10;40&lt;/additional_attributes&gt;&lt;/element&gt;&lt;/diagram&gt;Space for diagram notes</help_text><element><id>UMLPackage</id><coordinates><x>340</x><y>10</y><w>290</w><h>310</h></coordinates><panel_attributes>View
+--
+bg=orange</panel_attributes><additional_attributes></additional_attributes></element><element><id>UMLPackage</id><coordinates><x>0</x><y>350</y><w>630</w><h>340</h></coordinates><panel_attributes>Model
+--
+bg=orange</panel_attributes><additional_attributes></additional_attributes></element><element><id>UMLPackage</id><coordinates><x>0</x><y>10</y><w>290</w><h>310</h></coordinates><panel_attributes>Controller
+--
+bg=orange
+</panel_attributes><additional_attributes></additional_attributes></element><element><id>UMLClass</id><coordinates><x>480</x><y>40</y><w>150</w><h>70</h></coordinates><panel_attributes>_Class: Canvas_
+--
+Renders grid, lines, 
+and orbs
+group=2</panel_attributes><additional_attributes></additional_attributes></element><element><id>UMLClass</id><coordinates><x>480</x><y>110</y><w>150</w><h>70</h></coordinates><panel_attributes>_Class: Sidebar_
+--
+Shows sliders for editing
+selected lines
+group=2</panel_attributes><additional_attributes></additional_attributes></element><element><id>UMLClass</id><coordinates><x>480</x><y>180</y><w>150</w><h>70</h></coordinates><panel_attributes>_Class: Toolbar_
+--
+Holds buttons for selecting
+tools, and help button
+group=2</panel_attributes><additional_attributes></additional_attributes></element><element><id>UMLClass</id><coordinates><x>480</x><y>250</y><w>150</w><h>70</h></coordinates><panel_attributes>_Class: SoundPlayer_
+--
+Plays sounds
+group=2</panel_attributes><additional_attributes></additional_attributes></element><element><id>UMLClass</id><coordinates><x>10</x><y>390</y><w>230</w><h>70</h></coordinates><panel_attributes>_Class: Tool_
+--
+var selected_tool
+function act() // performs tool action</panel_attributes><additional_attributes></additional_attributes></element><element><id>UMLClass</id><coordinates><x>10</x><y>490</y><w>90</w><h>70</h></coordinates><panel_attributes>_Class: Eraser_
+--
+Erases 
+line</panel_attributes><additional_attributes></additional_attributes></element><element><id>Relation</id><coordinates><x>50</x><y>450</y><w>30</w><h>60</h></coordinates><panel_attributes>lt=&lt;&lt;-</panel_attributes><additional_attributes>10;10;10;40</additional_attributes></element><element><id>UMLClass</id><coordinates><x>10</x><y>570</y><w>90</w><h>70</h></coordinates><panel_attributes>_Class: Pen_
+--
+Draws
+Lines</panel_attributes><additional_attributes></additional_attributes></element><element><id>UMLClass</id><coordinates><x>150</x><y>490</y><w>90</w><h>70</h></coordinates><panel_attributes>_Class: Orb_
+--
+Places
+orb on
+lines
+group=1</panel_attributes><additional_attributes></additional_attributes></element><element><id>UMLClass</id><coordinates><x>150</x><y>570</y><w>90</w><h>70</h></coordinates><panel_attributes>_Class: EyeDropper_
+--
+Selects line's
+properties
+group=1</panel_attributes><additional_attributes></additional_attributes></element><element><id>Relation</id><coordinates><x>190</x><y>450</y><w>30</w><h>60</h></coordinates><panel_attributes>lt=&lt;&lt;-
+group=1</panel_attributes><additional_attributes>10;10;10;40</additional_attributes></element><element><id>Relation</id><coordinates><x>130</x><y>450</y><w>40</w><h>180</h></coordinates><panel_attributes>lt=&lt;&lt;-
+group=1</panel_attributes><additional_attributes>10;10;10;160;20;160</additional_attributes></element><element><id>Relation</id><coordinates><x>90</x><y>450</y><w>40</w><h>180</h></coordinates><panel_attributes>lt=&lt;&lt;-</panel_attributes><additional_attributes>20;10;20;160;10;160</additional_attributes></element><element><id>UMLClass</id><coordinates><x>260</x><y>390</y><w>160</w><h>70</h></coordinates><panel_attributes>_Class: LineManager_
+--
+Updates lines and their orbs</panel_attributes><additional_attributes></additional_attributes></element><element><id>UMLClass</id><coordinates><x>10</x><y>180</y><w>130</w><h>70</h></coordinates><panel_attributes>_Class: Clock_
+--
+Calls update functions
+every clock tick</panel_attributes><additional_attributes></additional_attributes></element><element><id>UMLClass</id><coordinates><x>350</x><y>510</y><w>140</w><h>130</h></coordinates><panel_attributes>_Class: Line_
+--
+-array of attached orbs
+-current positions of orbs
+-array of points
+-array of corners
+-volume
+-frequency
+-quality</panel_attributes><additional_attributes></additional_attributes></element><element><id>UMLClass</id><coordinates><x>10</x><y>40</y><w>260</w><h>90</h></coordinates><panel_attributes>_Class: InputHandler_
+--
+Detects mouse input relative to Canvas
+Detects keyboard shortcuts for Tool
+Handles events from Toolbar for Tool
+Handles events from Sidebar for Lines</panel_attributes><additional_attributes></additional_attributes></element><element><id>Relation</id><coordinates><x>260</x><y>110</y><w>70</w><h>300</h></coordinates><panel_attributes>lt=&lt;..</panel_attributes><additional_attributes>50;280;50;10;10;10</additional_attributes></element><element><id>Relation</id><coordinates><x>220</x><y>120</y><w>30</w><h>290</h></coordinates><panel_attributes>lt=&lt;..</panel_attributes><additional_attributes>10;270;10;10</additional_attributes></element><element><id>Relation</id><coordinates><x>260</x><y>80</y><w>240</w><h>30</h></coordinates><panel_attributes>lt=&lt;..</panel_attributes><additional_attributes>10;10;220;10</additional_attributes></element><element><id>Relation</id><coordinates><x>130</x><y>210</y><w>160</w><h>200</h></coordinates><panel_attributes>lt=&lt;..</panel_attributes><additional_attributes>140;180;140;10;10;10</additional_attributes></element><element><id>Relation</id><coordinates><x>370</x><y>450</y><w>30</w><h>80</h></coordinates><panel_attributes>lt=&lt;..</panel_attributes><additional_attributes>10;10;10;60</additional_attributes></element><element><id>Relation</id><coordinates><x>230</x><y>430</y><w>50</w><h>30</h></coordinates><panel_attributes>lt=&lt;..</panel_attributes><additional_attributes>30;10;10;10</additional_attributes></element><element><id>Relation</id><coordinates><x>380</x><y>310</y><w>180</w><h>100</h></coordinates><panel_attributes>lt=&lt;..</panel_attributes><additional_attributes>160;10;160;40;10;40;10;80</additional_attributes></element><element><id>Relation</id><coordinates><x>340</x><y>90</y><w>150</w><h>320</h></coordinates><panel_attributes>lt=&lt;..</panel_attributes><additional_attributes>130;10;10;10;10;300</additional_attributes></element><element><id>Relation</id><coordinates><x>360</x><y>150</y><w>140</w><h>260</h></coordinates><panel_attributes>lt=&lt;..</panel_attributes><additional_attributes>120;10;10;10;10;240</additional_attributes></element><element><id>Relation</id><coordinates><x>370</x><y>160</y><w>140</w><h>260</h></coordinates><panel_attributes>lt=&lt;..</panel_attributes><additional_attributes>120;10;10;10;10;240</additional_attributes></element></diagram>
