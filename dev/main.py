@@ -1,7 +1,7 @@
-
 import pygame
 import pygame_gui
 from toolbar import Toolbar
+from grid import Grid
 
 SCREEN_DIMENSIONS = (800, 600)
 
@@ -25,7 +25,7 @@ hello_button = pygame_gui.elements.UIButton(relative_rect=pygame.Rect((350, 275)
 
 # initialize the toolbar
 tb = Toolbar(ui_manager, 100, SCREEN_DIMENSIONS)
-
+grid = Grid(SCREEN_DIMENSIONS[0], SCREEN_DIMENSIONS[1], 5, 5)
 
 clock = pygame.time.Clock()
 is_running = True
@@ -43,5 +43,7 @@ while is_running:
 
     window_surface.blit(background, (0, 0))
     ui_manager.draw_ui(window_surface)
+
+    grid.drawGrid(window_surface)
 
     pygame.display.update()
