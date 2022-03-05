@@ -7,8 +7,9 @@ drawing lines in an arrangement to create a melody or rhythm.
 
 ## Installation
  - Clone the repository
- - Install Node.js from https://nodejs.org/en/
- - Navigate to dev/acies and run `npm start`
- - If everything is working properly, acies should open in your default browser
+ - Make sure python 10 is installed
+ - Make sure `pygame` and `pygame_gui` are installed
+ - Navigate to dev/ and run `python main.py`
+ - If everything is working properly, acies should open in a new window
 
 Created by Will Cunningham, Sam Waggoner, Dylan Haughton, Michael Wilkinson, and Callen Shaeffer
