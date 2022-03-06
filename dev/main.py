@@ -17,12 +17,6 @@ background.fill(pygame.Color('#FFFFFF'))
 ui_manager = pygame_gui.UIManager(SCREEN_DIMENSIONS, "theme.json")
 
 
-hello_button = pygame_gui.elements.UIButton(relative_rect=pygame.Rect((350, 275), (100, 50)),
-                                             text='Say Hello',
-                                             manager=ui_manager)
-
-
-
 # initialize the toolbar
 tb = Toolbar(ui_manager, 100, SCREEN_DIMENSIONS)
 grid = Grid(SCREEN_DIMENSIONS[0], SCREEN_DIMENSIONS[1], 5, 5)
