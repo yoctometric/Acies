@@ -1,3 +1,4 @@
+from json import tool
 import pygame
 import pygame_gui
 from toolbar import Toolbar
@@ -18,8 +19,11 @@ ui_manager = pygame_gui.UIManager(SCREEN_DIMENSIONS, "theme.json")
 
 
 # initialize the toolbar
-tb = Toolbar(ui_manager, 100, SCREEN_DIMENSIONS)
-grid = Grid(SCREEN_DIMENSIONS[0], SCREEN_DIMENSIONS[1], 5, 5)
+toolbarHeight = 60
+numColumns = 30
+numRows = int((1 - (toolbarHeight-50)/SCREEN_DIMENSIONS[1]) * numColumns) # makes the grid dots square, given toolbar height and numXdots
+grid = Grid(SCREEN_DIMENSIONS[0], SCREEN_DIMENSIONS[1]-toolbarHeight, numColumns, numRows)
+tb = Toolbar(ui_manager, toolbarHeight, SCREEN_DIMENSIONS)
 
 clock = pygame.time.Clock()
 is_running = True
