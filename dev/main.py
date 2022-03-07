@@ -21,7 +21,7 @@ ui_manager = pygame_gui.UIManager(SCREEN_DIMENSIONS, "theme.json")
 # initialize the toolbar
 toolbarHeight = 60
 numColumns = 30
-numRows = int((1 - (toolbarHeight-50)/SCREEN_DIMENSIONS[1]) * numColumns) # makes the grid dots square, given toolbar height and numXdots
+numRows = int((1 - (toolbarHeight-50)/SCREEN_DIMENSIONS[1]) * numColumns) # makes the grid dots square, given toolbar height and number columns
 grid = Grid(SCREEN_DIMENSIONS[0], SCREEN_DIMENSIONS[1]-toolbarHeight, numColumns, numRows)
 tb = Toolbar(ui_manager, toolbarHeight, SCREEN_DIMENSIONS)
 
