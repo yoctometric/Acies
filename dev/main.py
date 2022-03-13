@@ -3,7 +3,7 @@ import pygame_gui
 from toolbar import Toolbar
 from grid import Grid
 
-SCREEN_DIMENSIONS = (800, 600)
+SCREEN_DIMENSIONS = (1024, 600)
 
 pygame.init()
 
@@ -19,7 +19,7 @@ ui_manager = pygame_gui.UIManager(SCREEN_DIMENSIONS, "theme.json")
 
 # initialize the toolbar
 tb = Toolbar(ui_manager, 100, SCREEN_DIMENSIONS)
-grid = Grid(SCREEN_DIMENSIONS[0], SCREEN_DIMENSIONS[1], 5, 5)
+grid = Grid(SCREEN_DIMENSIONS[0], SCREEN_DIMENSIONS[1], 16, 9)
 
 clock = pygame.time.Clock()
 is_running = True
