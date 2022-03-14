@@ -1,6 +1,6 @@
 import pygame
 import pygame_gui
-from toolbar import Toolbar
+from toolbar import Toolbar, ERASE_ID, DRAW_LINE_ID, DRAW_ORB_ID, DUPLICATE_ID, EYE_DROPPER_ID, CLEAR_BOARD_ID
 from grid import Grid
 import tool
 
@@ -18,7 +18,6 @@ background.fill(pygame.Color('#FFFFFF'))
 ui_manager = pygame_gui.UIManager(SCREEN_DIMENSIONS, "theme.json")
 
 
-<<<<<<< HEAD
 # initialize the toolbar and grid
 toolbarHeight = 60
 numColumns = 60
@@ -28,11 +27,6 @@ tb = Toolbar(ui_manager, toolbarHeight, SCREEN_DIMENSIONS)
 
 # initialize tool to LineDrawer
 selected_tool = tool.LineDrawer()
-=======
-# initialize the toolbar
-tb = Toolbar(ui_manager, 100, SCREEN_DIMENSIONS)
-grid = Grid(SCREEN_DIMENSIONS[0], SCREEN_DIMENSIONS[1], 16, 9)
->>>>>>> 93d0e4c492e32ead22bdc6bc5a803f9bb46dea66
 
 clock = pygame.time.Clock()
 is_running = True
@@ -44,8 +38,26 @@ while is_running:
         if event.type == pygame.QUIT:
             is_running = False
 
+        # handle mouse movement
         elif event.type == pygame.MOUSEMOTION:
             selected_tool.move_to(pygame.mouse.get_pos())
+        
+        # handle toolbar button events
+        elif event.type == pygame_gui.UI_BUTTON_PRESSED:
+            button_id = event.ui_object_id # gets parent.element, so test by 'in' not '=='
+            if DRAW_LINE_ID in button_id:
+                selected_tool = tool.LineDrawer()
+            elif DRAW_ORB_ID in button_id:
+                selected_tool = tool.OrbDrawer()
+            elif ERASE_ID in button_id:
+                selected_tool = tool.Eraser()
+            elif DUPLICATE_ID in button_id:
+                selected_tool = tool.Duplicator()
+            elif EYE_DROPPER_ID in button_id:
+                selected_tool = tool.EyeDropper()
+            elif CLEAR_BOARD_ID in button_id:
+                print("not really a tool.")
+            
         
         ui_manager.process_events(event)
 

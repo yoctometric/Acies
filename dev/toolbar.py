@@ -1,6 +1,17 @@
 
+from numpy import object_
 import pygame
 import pygame_gui
+
+
+# button id defines. per pygame_gui standards, start with '#' and follow snake_case
+DRAW_LINE_ID = "#draw_line_button"
+DRAW_ORB_ID = "#draw_orb_button"
+ERASE_ID = "#erase_button"
+DUPLICATE_ID = "#duplicate_line_button"
+EYE_DROPPER_ID = "#eye_dropper_button"
+CLEAR_BOARD_ID = "#clear_board_button"
+
 
 # defines the toolbar ui layout
 class Toolbar:
@@ -30,24 +41,14 @@ class Toolbar:
         button_x_spacing = 10
         button_x = button_x_spacing # initialize the x position of the current button to the button spacing
 
-        # line drawer
+        # line drawer (pencil)
         self.draw_line_button = pygame_gui.elements.UIButton(
             relative_rect=pygame.Rect((button_x, button_y), button_size),
             text="",
             tool_tip_text='draw line',
             manager=manager,
-            container = self.panel
-        )
-
-        # move position for next button
-        button_x += button_size[0] + button_x_spacing
-        # line eraser
-        self.erase_line_button = pygame_gui.elements.UIButton(
-            relative_rect=pygame.Rect((button_x, button_y), button_size),
-            text="",
-            tool_tip_text='erase line',
-            manager=manager,
-            container = self.panel
+            container = self.panel,
+            object_id=DRAW_LINE_ID
         )
 
         # move position for next button
@@ -58,18 +59,20 @@ class Toolbar:
             text="",
             tool_tip_text ='draw orb',
             manager=manager,
-            container = self.panel
+            container=self.panel,
+            object_id=DRAW_ORB_ID
         )
 
         # move position for next button
         button_x += button_size[0] + button_x_spacing
-        # orb eraser
+        # general eraser
         self.erase_orb_button = pygame_gui.elements.UIButton(
             relative_rect=pygame.Rect((button_x, button_y), button_size),
             text="",
-            tool_tip_text='erase orb',
+            tool_tip_text='erase',
             manager=manager,
-            container = self.panel
+            container=self.panel,
+            object_id=ERASE_ID
         )
 
         # move position for next button
@@ -80,7 +83,32 @@ class Toolbar:
             text="",
             tool_tip_text='duplicate',
             manager=manager,
-            container = self.panel
+            container=self.panel,
+            object_id=DUPLICATE_ID
+        )
+
+        # move position for next button
+        button_x += button_size[0] + button_x_spacing
+        # eye dropper
+        self.eye_dropper_button = pygame_gui.elements.UIButton(
+            relative_rect=pygame.Rect((button_x, button_y), button_size),
+            text="",
+            tool_tip_text='eye dropper',
+            manager=manager,
+            container=self.panel,
+            object_id=EYE_DROPPER_ID
+        )
+
+        # move position for next button
+        button_x += button_size[0] + button_x_spacing
+        # clear board (trash can) TODO: should this be aligned right so that it isnt so close to the other buttons?
+        self.clear_board_button = pygame_gui.elements.UIButton(
+            relative_rect=pygame.Rect((button_x, button_y), button_size),
+            text="",
+            tool_tip_text='clear board. is this even a tool? maybe should align right and make it a click, confirm popup sorta thing',
+            manager=manager,
+            container=self.panel,
+            object_id=CLEAR_BOARD_ID
         )
 
         # now load and attach images to their buttons

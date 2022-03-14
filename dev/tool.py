@@ -40,3 +40,39 @@ class LineDrawer(Tool):
 
         # load image for LineDrawer
         super().setCursorImage("resources/line_drawer_cursor.png")
+
+
+# contains functionality for drawing orbs on lines
+class OrbDrawer(Tool):
+    def __init__(self) -> None:
+        super().__init__()
+
+        # load image for LineDrawer
+        super().setCursorImage("resources/orb_drawer_cursor.png")
+
+
+# contains fucntionality for erasing lines and orbs
+class Eraser(Tool):
+    def __init__(self) -> None:
+        super().__init__()
+
+        # load image for LineDrawer
+        super().setCursorImage("resources/eraser_cursor.png")  
+
+
+# contains functionality for duplicating lines and their orbs
+class Duplicator(Tool):
+    def __init__(self) -> None:
+        super().__init__()
+
+        # load image for LineDrawer
+        super().setCursorImage("resources/duplicator_cursor.png")  
+
+
+# contains functionality for eye dropper
+class EyeDropper(Tool):
+    def __init__(self) -> None:
+        super().__init__()
+
+        # load image for LineDrawer
+        super().setCursorImage("resources/eye_dropper_cursor.png")  
