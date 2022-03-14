@@ -18,6 +18,7 @@ background.fill(pygame.Color('#FFFFFF'))
 ui_manager = pygame_gui.UIManager(SCREEN_DIMENSIONS, "theme.json")
 
 
+<<<<<<< HEAD
 # initialize the toolbar and grid
 toolbarHeight = 60
 numColumns = 60
@@ -27,6 +28,11 @@ tb = Toolbar(ui_manager, toolbarHeight, SCREEN_DIMENSIONS)
 
 # initialize tool to LineDrawer
 selected_tool = tool.LineDrawer()
+=======
+# initialize the toolbar
+tb = Toolbar(ui_manager, 100, SCREEN_DIMENSIONS)
+grid = Grid(SCREEN_DIMENSIONS[0], SCREEN_DIMENSIONS[1], 16, 9)
+>>>>>>> 93d0e4c492e32ead22bdc6bc5a803f9bb46dea66
 
 clock = pygame.time.Clock()
 is_running = True
