@@ -19,13 +19,18 @@ class Tool():
 
 
     # called by main to draw the cursor image of the tool
-    def drawTool(self, window_surface):
+    def drawTool(self, window_surface: pygame.Surface):
         # align rect so that the bottom left corner of the image is at the cursor
         r = self.cursor_rect
         r.x = self.x - r.width
         r.y = self.y - r.height
         window_surface.blit(self.cursor_image, r)
+    
 
+    # called by child to load up and set the cursor image of the tool
+    def setCursorImage(self, filePath: str):
+        self.cursor_image = pygame.image.load(filePath).convert()
+        self.cursor_rect = self.cursor_image.get_rect()
 
 
 # contains functionality for drawing lines
@@ -34,3 +39,4 @@ class LineDrawer(Tool):
         super().__init__()
 
         # load image for LineDrawer
+        super().setCursorImage("resources/line_drawer_cursor.png")
