@@ -24,7 +24,7 @@ class Grid:
         self.rowPoints = []
         self.points = [self.columnPoints, self.rowPoints]
         self.buffer = buffer
-        self.dotList = [] # List of dots. This will be used to test if lines are valid when they are being drawn. 
+        self.dotList = [] # 2d array of dots. This will be used to test if lines are valid when they are being drawn. 
         
         for i in range(numColumns + 1):  
             self.columnPoints.append(self.buffer + i * int((width - 2 * self.buffer) / (numColumns -1)))
