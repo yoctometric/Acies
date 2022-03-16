@@ -41,6 +41,11 @@ while is_running:
         if event.type == pygame.QUIT:
             is_running = False
 
+        # handle tool actions. TODO: halt tool usage while over UI
+        elif event.type == pygame.MOUSEBUTTONDOWN:
+            if event.button == pygame.BUTTON_LEFT:
+                selected_tool.clickAction(None)
+
         # handle mouse movement
         elif event.type == pygame.MOUSEMOTION:
             selected_tool.move_to(grid.getNearestPosition(pygame.mouse.get_pos()))

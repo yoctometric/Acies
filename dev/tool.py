@@ -17,6 +17,11 @@ class Tool():
         self.x = pos[0]
         self.y = pos[1]
 
+    
+    # performs tool action. overridden by children.
+    def clickAction(self, lineManager):
+        print("default tool action")
+
 
     # called by main to draw the cursor image of the tool
     def drawTool(self, window_surface: pygame.Surface):
@@ -41,6 +46,10 @@ class LineDrawer(Tool):
 
         # load image for LineDrawer
         super().setCursorImage("resources/line_drawer_cursor.png")
+    
+
+    def clickAction(self, lineManager):
+        print("line action called")
 
 
 # contains functionality for drawing orbs on lines
