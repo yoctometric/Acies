@@ -28,6 +28,13 @@ class LineManager:
     def addLine(self, pos: tuple) -> bool:
         line = Line(pos, self.gridOffset)
         self.lines.append(line)
+    
+
+    # checks for if a line is already occupying a space
+    def lineOverlaps(self, pos: tuple) -> bool:
+        for line in self.lines:
+            pass
+        # TODO: implement
 
 
 
