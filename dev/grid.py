@@ -95,8 +95,8 @@ class ResizableGrid:
         self.renderPointCounts = (xNumPoints, yNumPoints)
 
 
-    # pans the grid by <difference> pixels
-    def panGrid(self, difference: tuple):
+    # pans the grid by <difference> pixels.
+    def panGrid(self, difference: tuple) -> None:
         offset = (self.gridOffset[0] + difference[0], self.gridOffset[1] + difference[1])
         self.update(self.pointSpacing, self.pointSize, offset, self.screenDimensions)
 
@@ -148,3 +148,7 @@ class ResizableGrid:
             newYPos = top
 
         return (newXPos, newYPos)
+    
+
+    def getGridOffset(self) -> tuple:
+        return self.gridOffset

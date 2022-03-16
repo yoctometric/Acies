@@ -1,7 +1,8 @@
-from re import X
-import pygame
 # This file contains all of the classes relating to Tools and placement
 # so, the toolbar will recieve a click and say "selected_tool = LineDrawer()" for example
+
+import pygame
+from line import Line, LineManager, Orb
 
 # the parent class of all tools. main makes it follow the mouse
 class Tool():
@@ -18,9 +19,10 @@ class Tool():
         self.y = pos[1]
 
     
-    # performs tool action. overridden by children.
-    def clickAction(self, lineManager):
+    # performs tool action. overridden by children. returns success or failure
+    def clickAction(self, lineManager) -> bool:
         print("default tool action")
+        return True
 
 
     # called by main to draw the cursor image of the tool
@@ -48,8 +50,8 @@ class LineDrawer(Tool):
         super().setCursorImage("resources/line_drawer_cursor.png")
     
 
-    def clickAction(self, lineManager):
-        print("line action called")
+    def clickAction(self, lineManager: LineManager) -> bool:
+        return lineManager.addLine((self.x, self.y))
 
 
 # contains functionality for drawing orbs on lines

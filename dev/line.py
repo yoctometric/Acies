@@ -1,18 +1,33 @@
 # this file contains all of the classes relevant to lines and orb movement
-
+from email.mime import base
+from matplotlib.pyplot import grid
+import pygame
 
 class LineManager:
     """
     The LineManager class updates lines and detects collisions with lines when they are being placed
     """
-    lines = [] # array of all line class instances
 
     def __init__(self) -> None:
+        self.lines = []
+        self.gridOffset = (0, 0) # set in render call, taken from grid
+
+
+    def updateLines(self) -> None:
         pass
 
 
-    def update_lines():
-        pass
+    # renders all of the lines and their orbs to the surface. needs gridOffset so lines can be panned
+    def renderLines(self, window_surface: pygame.Surface, gridOffset: tuple) -> None:
+        self.gridOffset = gridOffset
+        for line in self.lines:
+            line.renderLine(window_surface, gridOffset)
+
+
+    # add line. returns true if valid placement, false if placement failed
+    def addLine(self, pos: tuple) -> bool:
+        line = Line(pos, self.gridOffset)
+        self.lines.append(line)
 
 
 
@@ -20,26 +35,43 @@ class Line:
     """
     The line class defines the points of the line, rendering, and orb movements
     """
-    path = [] # the array of points
-    orbs = [] # the array of attached orbs
 
-    def __init__(self, base_pos) -> None:
-        self.add_point(base_pos)
+    def __init__(self, base_pos: tuple, initialGridOffset: tuple) -> None:
+        self.base_pos = base_pos
+        self.initialGridOfset = initialGridOffset
+        self.path = [] # point array
+        self.orbs = [] # orb array
+
+        self.addPoint((0, 0))
 
 
     # moves the orbs across the line
     def update(self, delta: float):
         for orb in self.orbs:
-            orb.move_towards()
+            orb.moveTowards()
+
 
     # adds a point to the line path
-    def add_point(self, point):
+    def addPoint(self, point):
         self.path.append(point)
 
 
     # adds an orb to the line path
-    def add_orb(self, orb):
+    def addOrb(self, orb):
         self.orbs.append(orb)
+
+    
+    # renders the line to the passed surface
+    def renderLine(self, window_surface: pygame.Surface, gridOffset: tuple) -> None:
+        xOff, yOff = (gridOffset[0] - self.initialGridOfset[0], gridOffset[1] - self.initialGridOfset[1])
+
+        # temp render
+        pygame.draw.circle(
+            surface=window_surface, color='#00FE10', 
+            center=(self.base_pos[0] + xOff, self.base_pos[1] + yOff),
+            radius=10, width=0
+        )
+
 
 
 class Orb:
@@ -49,6 +81,6 @@ class Orb:
         self.speed = speed
 
     # moves the orb towards its next point
-    def move_towards(point, delta: float):
+    def moveTowards(point, delta: float):
         pass
     

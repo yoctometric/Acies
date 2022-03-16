@@ -45,7 +45,7 @@ while is_running:
         # handle tool actions. TODO: halt tool usage while over UI
         elif event.type == pygame.MOUSEBUTTONDOWN:
             if event.button == pygame.BUTTON_LEFT:
-                selected_tool.clickAction(None)
+                selected_tool.clickAction(lineManager)
 
         # handle mouse movement
         elif event.type == pygame.MOUSEMOTION:
@@ -80,6 +80,7 @@ while is_running:
 
     # draw objects
     grid.drawGrid(window_surface)
+    lineManager.renderLines(window_surface, grid.getGridOffset())
     selected_tool.drawTool(window_surface)
 
     # since UI is top level, drawn last
