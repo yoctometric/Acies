@@ -1,6 +1,8 @@
 import pygame
 import pygame_gui
 
+SIDEBAR_PANEL_ID = "#sidebar_panel"
+SIDEBAR_TITLE_ID = "#sidebar_title"
 
 # defines the sidebar layout and handles appearing/disappearing
 class Sidebar:
@@ -12,11 +14,19 @@ class Sidebar:
 
         # this statement defines and passes the panel to the ui manager
         self.panel = pygame_gui.elements.UIPanel(
-                    relative_rect=self.panelRect, 
-                    manager=manager, starting_layer_height=1
+            relative_rect=self.panelRect, 
+            manager=manager, starting_layer_height=1,
+            object_id=SIDEBAR_PANEL_ID
         )
 
-        self.setPanelSide(2) # move panel off screen
+        self.setPanelSide(1) # move panel off screen
+
+        # add title
+        self.title = pygame_gui.elements.UILabel(
+            relative_rect=pygame.Rect(self.panelRect.x, 0, width, 50),
+            manager=manager, text="Edit Line",
+            object_id=SIDEBAR_TITLE_ID
+        )
     
 
     # set the side the panel is appearing on. 0: left, 1: right, 2+: off screen (hidden)
@@ -24,3 +34,4 @@ class Sidebar:
         x = (self.screenDimensions[0] - self.width) * side
         self.panel.set_position((x, 0))
         self.panel.set_dimensions((self.width, self.screenDimensions[1] - self.bottomMargin))
+
