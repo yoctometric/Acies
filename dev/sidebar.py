@@ -19,7 +19,6 @@ class Sidebar:
             object_id=SIDEBAR_PANEL_ID
         )
 
-        self.setPanelSide(1) # move panel off screen
 
         # add title
         self.title = pygame_gui.elements.UILabel(
@@ -28,9 +27,13 @@ class Sidebar:
             object_id=SIDEBAR_TITLE_ID
         )
     
+        self.setPanelSide(2) # move panel off screen
+
 
     # set the side the panel is appearing on. 0: left, 1: right, 2+: off screen (hidden)
     def setPanelSide(self, side: int=1):
+        # TODO: also adjust the children. how?
+
         x = (self.screenDimensions[0] - self.width) * side
         self.panel.set_position((x, 0))
         self.panel.set_dimensions((self.width, self.screenDimensions[1] - self.bottomMargin))
