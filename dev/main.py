@@ -54,6 +54,9 @@ while is_running:
             # panning: if right click held,
             if pygame.mouse.get_pressed()[2]:
                 grid.panGrid(event.rel) # pan the grid
+            # if not panning, call hover tool action
+            else:
+                selected_tool.hoverAction(lineManager)
 
         
         # handle toolbar button events

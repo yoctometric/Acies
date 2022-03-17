@@ -3,6 +3,11 @@ from email.mime import base
 from matplotlib.pyplot import grid
 import pygame
 
+
+# the error value used when == comparing floating point positions
+COMPARE_ERROR = 0.01
+
+
 class LineManager:
     """
     The LineManager class updates lines and detects collisions with lines when they are being placed
@@ -26,15 +31,26 @@ class LineManager:
 
     # add line. returns true if valid placement, false if placement failed
     def addLine(self, pos: tuple) -> bool:
+        if self.lineOverlaps(pos):
+            return
+        
         line = Line(pos, self.gridOffset)
         self.lines.append(line)
     
 
     # checks for if a line is already occupying a space
+    # if performance becomes a problem, this is the culprit. Implement quadtree?
     def lineOverlaps(self, pos: tuple) -> bool:
         for line in self.lines:
-            pass
-        # TODO: implement
+            for point in line.getPathScreenSpace(self.gridOffset):
+                px, py = pos
+                opx, opy = point
+
+                if (px < opx + COMPARE_ERROR) and (px > opx - COMPARE_ERROR):
+                    if (py < opy + COMPARE_ERROR) and (py > opy - COMPARE_ERROR):
+                        return True # line does overlap
+
+        return False
 
 
 
@@ -43,8 +59,8 @@ class Line:
     The line class defines the points of the line, rendering, and orb movements
     """
 
-    def __init__(self, base_pos: tuple, initialGridOffset: tuple) -> None:
-        self.base_pos = base_pos
+    def __init__(self, basePos: tuple, initialGridOffset: tuple) -> None:
+        self.basePos = basePos
         self.initialGridOfset = initialGridOffset
         self.path = [] # point array
         self.orbs = [] # orb array
@@ -75,9 +91,28 @@ class Line:
         # temp render
         pygame.draw.circle(
             surface=window_surface, color='#00FE10', 
-            center=(self.base_pos[0] + xOff, self.base_pos[1] + yOff),
+            center=(self.basePos[0] + xOff, self.basePos[1] + yOff),
             radius=10, width=0
         )
+
+    
+    def getPath(self) -> list:
+        return self.path
+    
+
+    # returns the path converted into screenspace coordinates (grid oofset taken into account)
+    def getPathScreenSpace(self, gridOffset: tuple) -> list:
+        p = []
+        xOff = gridOffset[0] - self.initialGridOfset[0] + self.basePos[0]
+        yOff = gridOffset[1] - self.initialGridOfset[1] + self.basePos[1]
+        for point in self.getPath():
+            p.append((point[0] + xOff, point[1] + yOff))
+        
+        return p
+
+
+    def getBasePos(self) -> tuple:
+        return self.basePos
 
 
 
