@@ -1,5 +1,3 @@
-
-from numpy import object_
 import pygame
 import pygame_gui
 

@@ -41,11 +41,13 @@ class LineManager:
     # checks for if a line is already occupying a space
     # if performance becomes a problem, this is the culprit. Implement quadtree?
     def lineOverlaps(self, pos: tuple) -> bool:
+        # loop over all points in each line
         for line in self.lines:
             for point in line.getPathScreenSpace(self.gridOffset):
                 px, py = pos
                 opx, opy = point
 
+                # compare test pos to line point pos
                 if (px < opx + COMPARE_ERROR) and (px > opx - COMPARE_ERROR):
                     if (py < opy + COMPARE_ERROR) and (py > opy - COMPARE_ERROR):
                         return True # line does overlap
@@ -100,7 +102,7 @@ class Line:
         return self.path
     
 
-    # returns the path converted into screenspace coordinates (grid oofset taken into account)
+    # returns the path converted into screenspace coordinates (grid ofset taken into account)
     def getPathScreenSpace(self, gridOffset: tuple) -> list:
         p = []
         xOff = gridOffset[0] - self.initialGridOfset[0] + self.basePos[0]
