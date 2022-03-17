@@ -1,0 +1,26 @@
+import pygame
+import pygame_gui
+
+
+# defines the sidebar layout and handles appearing/disappearing
+class Sidebar:
+    def __init__(self, manager, width: float, bottomMargin: float, screenDimensions: tuple) -> None:
+        self.screenDimensions = screenDimensions
+        self.width = width
+        self.bottomMargin = bottomMargin
+        self.panelRect = pygame.Rect(screenDimensions[0] - width, 0, screenDimensions[0], screenDimensions[1] - bottomMargin)
+
+        # this statement defines and passes the panel to the ui manager
+        self.panel = pygame_gui.elements.UIPanel(
+                    relative_rect=self.panelRect, 
+                    manager=manager, starting_layer_height=1
+        )
+
+        self.setPanelSide(2) # move panel off screen
+    
+
+    # set the side the panel is appearing on. 0: left, 1: right, 2+: off screen (hidden)
+    def setPanelSide(self, side: int=1):
+        x = (self.screenDimensions[0] - self.width) * side
+        self.panel.set_position((x, 0))
+        self.panel.set_dimensions((self.width, self.screenDimensions[1] - self.bottomMargin))

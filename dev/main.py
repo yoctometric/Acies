@@ -1,6 +1,7 @@
 import pygame
 import pygame_gui
 from toolbar import Toolbar, ERASE_ID, DRAW_LINE_ID, DRAW_ORB_ID, DUPLICATE_ID, EYE_DROPPER_ID, CLEAR_BOARD_ID
+from sidebar import Sidebar
 from grid import Grid, ResizableGrid
 import tool
 from line import LineManager
@@ -19,14 +20,13 @@ background.fill(pygame.Color('#FFFFFF'))
 ui_manager = pygame_gui.UIManager(SCREEN_DIMENSIONS, "theme.json")
 
 
-# initialize the toolbar and grid
 toolbarHeight = 60
-numColumns = 60
-# numRows = int((1 - (toolbarHeight-50)/SCREEN_DIMENSIONS[1]) * numColumns) # makes the grid dots square, given toolbar height and number columns
-# grid = Grid(SCREEN_DIMENSIONS[0], SCREEN_DIMENSIONS[1]-toolbarHeight, numColumns, numRows)
+sideBarWidth = 200
+
 grid = ResizableGrid(20, 4, (-5, -5), SCREEN_DIMENSIONS)
 lineManager = LineManager()
-tb = Toolbar(ui_manager, toolbarHeight, SCREEN_DIMENSIONS)
+toolBar = Toolbar(ui_manager, toolbarHeight, SCREEN_DIMENSIONS)
+sideBar = Sidebar(ui_manager, sideBarWidth, toolbarHeight, SCREEN_DIMENSIONS)
 
 # initialize tool to LineDrawer
 selected_tool = tool.LineDrawer()
