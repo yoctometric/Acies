@@ -27,12 +27,12 @@ class Sidebar:
             object_id=SIDEBAR_TITLE_ID
         )
     
-        self.setPanelSide(2) # move panel off screen
+        # self.setPanelSide(2) # move panel off screen
 
 
     # set the side the panel is appearing on. 0: left, 1: right, 2+: off screen (hidden)
     def setPanelSide(self, side: int=1):
-        # TODO: also adjust the children. how?
+        # TODO: also adjust the children. how? containers / anchors are poorly documented and confusing
 
         x = (self.screenDimensions[0] - self.width) * side
         self.panel.set_position((x, 0))

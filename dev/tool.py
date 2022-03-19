@@ -3,6 +3,8 @@
 
 import pygame
 from line import Line, LineManager, Orb
+from sidebar import Sidebar
+from toolbar import Toolbar
 
 # the parent class of all tools. main makes it follow the mouse
 class Tool():
@@ -20,13 +22,14 @@ class Tool():
 
     
     # performs tool action. overridden by children. returns success or failure
-    def clickAction(self, lineManager) -> bool:
+    # tools should only ever need to talk to the LineManager and UI elements
+    def clickAction(self, lineManager: LineManager, toolbar: Toolbar, sidebar: Sidebar) -> bool:
         print("default tool action")
         return True
     
 
     # performs tool hover function. overridden by some children (mouse motion triggers this)
-    def hoverAction(self, lineManager) -> None:
+    def hoverAction(self, lineManager: LineManager) -> None:
         pass
 
 
@@ -55,7 +58,7 @@ class LineDrawer(Tool):
         super().setCursorImage("resources/line_drawer_cursor.png")
     
 
-    def clickAction(self, lineManager: LineManager) -> bool:
+    def clickAction(self, lineManager: LineManager, toolbar: Toolbar, sidebar: Sidebar) -> bool:
         return lineManager.addLine((self.x, self.y))
 
 
