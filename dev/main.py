@@ -24,7 +24,7 @@ toolbarHeight = 60
 sideBarWidth = 200
 
 grid = ResizableGrid(20, 4, (-5, -5), SCREEN_DIMENSIONS)
-lineManager = LineManager()
+lineManager = LineManager(SCREEN_DIMENSIONS)
 toolbar = Toolbar(ui_manager, toolbarHeight, SCREEN_DIMENSIONS)
 sidebar = Sidebar(ui_manager, sideBarWidth, toolbarHeight, SCREEN_DIMENSIONS)
 

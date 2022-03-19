@@ -13,9 +13,10 @@ class LineManager:
     The LineManager class updates lines and detects collisions with lines when they are being placed
     """
 
-    def __init__(self) -> None:
+    def __init__(self, screenDimensions: tuple) -> None:
         self.lines = []
         self.gridOffset = (0, 0) # set in render call, taken from grid
+        self.screenDimensions = screenDimensions # mostly stored for tool actions
 
 
     def updateLines(self) -> None:
@@ -31,7 +32,8 @@ class LineManager:
 
     # add line. returns true if valid placement, false if placement failed
     def addLine(self, pos: tuple) -> bool:
-        if self.lineOverlaps(pos):
+        # if there is already a line, return
+        if self.getLineAt(pos):
             return
         
         line = Line(pos, self.gridOffset)
@@ -40,7 +42,7 @@ class LineManager:
 
     # checks for if a line is already occupying a space
     # if performance becomes a problem, this is the culprit. Implement quadtree?
-    def lineOverlaps(self, pos: tuple) -> bool:
+    def getLineAt(self, pos: tuple) -> bool:
         # loop over all points in each line
         for line in self.lines:
             for point in line.getPathScreenSpace(self.gridOffset):
@@ -50,9 +52,10 @@ class LineManager:
                 # compare test pos to line point pos
                 if (px < opx + COMPARE_ERROR) and (px > opx - COMPARE_ERROR):
                     if (py < opy + COMPARE_ERROR) and (py > opy - COMPARE_ERROR):
-                        return True # line does overlap
+                        return line # line does overlap
 
-        return False
+        # no overlapping, return None
+        return None
 
 
 

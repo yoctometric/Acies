@@ -1,5 +1,6 @@
 import pygame
 import pygame_gui
+from line import Line, Orb
 
 SIDEBAR_PANEL_ID = "#sidebar_panel"
 SIDEBAR_TITLE_ID = "#sidebar_title"
@@ -27,7 +28,19 @@ class Sidebar:
             object_id=SIDEBAR_TITLE_ID
         )
     
-        # self.setPanelSide(2) # move panel off screen
+        self.setPanelSide(2) # move panel off screen
+
+
+    # shows edit panel for an orb
+    def showOrbEdit(self, orb: Orb, side: int):
+
+        self.setPanelSide(side)
+
+
+    # shows edit panel for a line
+    def showLineEdit(self, line: Line, side: int):
+
+        self.setPanelSide(side)
 
 
     # set the side the panel is appearing on. 0: left, 1: right, 2+: off screen (hidden)

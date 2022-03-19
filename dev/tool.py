@@ -57,7 +57,7 @@ class LineDrawer(Tool):
         # load image for LineDrawer
         super().setCursorImage("resources/line_drawer_cursor.png")
     
-
+    # line click override
     def clickAction(self, lineManager: LineManager, toolbar: Toolbar, sidebar: Sidebar) -> bool:
         return lineManager.addLine((self.x, self.y))
 
@@ -78,6 +78,23 @@ class Edit(Tool):
 
         # load image for Edit tool
         super().setCursorImage("resources/edit_cursor.png")
+
+    # edit click override
+    def clickAction(self, lineManager: LineManager, toolbar: Toolbar, sidebar: Sidebar) -> bool:
+        print("editing!")
+
+        # get the line that the cursor is over
+        targetLine = lineManager.getLineAt((self.x, self.y))
+
+        # calc the side to show the sidebar on
+        side = 1
+        if self.x > (lineManager.screenDimensions[0] / 2):
+            side = 0
+        
+        if targetLine:
+            sidebar.showLineEdit(targetLine, side)
+
+        return True
 
 
 # contains fucntionality for erasing lines and orbs
