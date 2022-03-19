@@ -1,6 +1,6 @@
 import pygame
 import pygame_gui
-from toolbar import Toolbar, ERASE_ID, DRAW_LINE_ID, DRAW_ORB_ID, DUPLICATE_ID, EYE_DROPPER_ID, CLEAR_BOARD_ID
+from toolbar import Toolbar, ERASE_ID, DRAW_LINE_ID, DRAW_ORB_ID, EDIT_ID, DUPLICATE_ID, EYE_DROPPER_ID, CLEAR_BOARD_ID
 from sidebar import Sidebar
 from grid import Grid, ResizableGrid
 import tool
@@ -25,8 +25,8 @@ sideBarWidth = 200
 
 grid = ResizableGrid(20, 4, (-5, -5), SCREEN_DIMENSIONS)
 lineManager = LineManager()
-toolBar = Toolbar(ui_manager, toolbarHeight, SCREEN_DIMENSIONS)
-sideBar = Sidebar(ui_manager, sideBarWidth, toolbarHeight, SCREEN_DIMENSIONS)
+toolbar = Toolbar(ui_manager, toolbarHeight, SCREEN_DIMENSIONS)
+sidebar = Sidebar(ui_manager, sideBarWidth, toolbarHeight, SCREEN_DIMENSIONS)
 
 # initialize tool to LineDrawer
 selected_tool = tool.LineDrawer()
@@ -45,7 +45,7 @@ while is_running:
         # handle tool actions. TODO: halt tool usage while over UI
         elif event.type == pygame.MOUSEBUTTONDOWN:
             if event.button == pygame.BUTTON_LEFT:
-                selected_tool.clickAction(lineManager)
+                selected_tool.clickAction(lineManager, toolbar, sidebar)
 
         # handle mouse movement
         elif event.type == pygame.MOUSEMOTION:
@@ -66,6 +66,8 @@ while is_running:
                 selected_tool = tool.LineDrawer()
             elif DRAW_ORB_ID in button_id:
                 selected_tool = tool.OrbDrawer()
+            elif EDIT_ID in button_id:
+                selected_tool = tool.Edit()
             elif ERASE_ID in button_id:
                 selected_tool = tool.Eraser()
             elif DUPLICATE_ID in button_id:

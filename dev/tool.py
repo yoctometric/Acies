@@ -67,8 +67,17 @@ class OrbDrawer(Tool):
     def __init__(self) -> None:
         super().__init__()
 
-        # load image for LineDrawer
+        # load image for OrbDrawer
         super().setCursorImage("resources/orb_drawer_cursor.png")
+
+
+# contains functionality for editing orbs and lines
+class Edit(Tool):
+    def __init__(self) -> None:
+        super().__init__()
+
+        # load image for Edit tool
+        super().setCursorImage("resources/edit_cursor.png")
 
 
 # contains fucntionality for erasing lines and orbs
@@ -76,7 +85,7 @@ class Eraser(Tool):
     def __init__(self) -> None:
         super().__init__()
 
-        # load image for LineDrawer
+        # load image for Eraser
         super().setCursorImage("resources/eraser_cursor.png")  
 
 
@@ -85,7 +94,7 @@ class Duplicator(Tool):
     def __init__(self) -> None:
         super().__init__()
 
-        # load image for LineDrawer
+        # load image for Duplicator
         super().setCursorImage("resources/duplicator_cursor.png")  
 
 
@@ -94,5 +103,5 @@ class EyeDropper(Tool):
     def __init__(self) -> None:
         super().__init__()
 
-        # load image for LineDrawer
+        # load image for Eye dropper
         super().setCursorImage("resources/eye_dropper_cursor.png")  

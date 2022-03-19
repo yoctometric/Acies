@@ -5,6 +5,7 @@ import pygame_gui
 # button id defines. per pygame_gui standards, start with '#' and follow snake_case
 DRAW_LINE_ID = "#draw_line_button"
 DRAW_ORB_ID = "#draw_orb_button"
+EDIT_ID = "#edit_button"
 ERASE_ID = "#erase_button"
 DUPLICATE_ID = "#duplicate_line_button"
 EYE_DROPPER_ID = "#eye_dropper_button"
@@ -59,6 +60,18 @@ class Toolbar:
             manager=manager,
             container=self.panel,
             object_id=DRAW_ORB_ID
+        )
+
+        # move position for next button
+        button_x += button_size[0] + button_x_spacing
+        # edit element
+        self.draw_orb_button = pygame_gui.elements.UIButton(
+            relative_rect=pygame.Rect((button_x, button_y), button_size),
+            text="",
+            tool_tip_text ='edit element',
+            manager=manager,
+            container=self.panel,
+            object_id=EDIT_ID
         )
 
         # move position for next button
