@@ -15,7 +15,7 @@ class Tool():
         self.cursor_rect = None
 
 
-    # called my main to update tool position
+    # called by main to update tool position
     def move_to(self, pos: tuple):
         self.x = pos[0]
         self.y = pos[1]
