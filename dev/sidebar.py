@@ -23,9 +23,14 @@ class Sidebar:
 
         # add title
         self.title = pygame_gui.elements.UILabel(
-            relative_rect=pygame.Rect(self.panelRect.x, 0, width, 50),
+            relative_rect=pygame.Rect(0, 0, width, 50),
             manager=manager, text="Edit Line",
-            object_id=SIDEBAR_TITLE_ID
+            object_id=SIDEBAR_TITLE_ID, 
+            container=self.panel,
+            anchors = {'top': 'top',
+                        'bottom': 'top',
+                        'left': 'left',
+                        'right': 'left'}
         )
     
         self.setPanelSide(2) # move panel off screen
@@ -50,4 +55,3 @@ class Sidebar:
         x = (self.screenDimensions[0] - self.width) * side
         self.panel.set_position((x, 0))
         self.panel.set_dimensions((self.width, self.screenDimensions[1] - self.bottomMargin))
-
