@@ -28,6 +28,8 @@ class Tool():
         return True
     
 
+    
+
     # performs tool hover function. overridden by some children (mouse motion triggers this)
     def hoverAction(self, lineManager: LineManager) -> None:
         pass
