@@ -42,7 +42,7 @@ class LineManager:
 
     # checks for if a line is already occupying a space
     # if performance becomes a problem, this is the culprit. Implement quadtree?
-    def getLineAt(self, pos: tuple) -> bool:
+    def getLineAt(self, pos: tuple) -> Line:
         # loop over all points in each line
         for line in self.lines:
             for point in line.getPathScreenSpace(self.gridOffset):
