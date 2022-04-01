@@ -4,6 +4,7 @@ from line import Line, Orb
 
 SIDEBAR_PANEL_ID = "#sidebar_panel"
 SIDEBAR_TITLE_ID = "#sidebar_title"
+SIDEBAR_ORBEDIT_PANEL_ID = "#sidebar_orbedit_panel"
 
 # defines the sidebar layout and handles appearing/disappearing
 class Sidebar:
@@ -32,6 +33,21 @@ class Sidebar:
                         'left': 'left',
                         'right': 'left'}
         )
+
+
+        # orb edit sub-panel. allows setting visibility of the all orb edit elements in one call
+        # the "-2" magic number is 2x the theme file's panel theme border width parameter and allows the true centering of the panel.
+        self.orbEditPanel = pygame_gui.elements.UIPanel(
+            relative_rect=pygame.Rect(-2, 50, width, self.panelRect.height - 50),
+            manager=manager, starting_layer_height=1,
+            object_id=SIDEBAR_ORBEDIT_PANEL_ID,
+            container=self.panel,
+            margins={"top": 0, "left": 0, "right": 0, "bottom": 0},
+            anchors= {'top': 'top',
+                        'bottom': 'top',
+                        'left': 'left',
+                        'right': 'left'}
+        )
     
         self.setPanelSide(2) # move panel off screen
 
@@ -50,7 +66,6 @@ class Sidebar:
 
     # set the side the panel is appearing on. 0: left, 1: right, 2+: off screen (hidden)
     def setPanelSide(self, side: int=1):
-        # TODO: also adjust the children. how? containers / anchors are poorly documented and confusing
 
         x = (self.screenDimensions[0] - self.width) * side
         self.panel.set_position((x, 0))
