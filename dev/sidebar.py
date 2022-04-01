@@ -25,7 +25,7 @@ class Sidebar:
         # add title
         self.title = pygame_gui.elements.UILabel(
             relative_rect=pygame.Rect(0, 0, width, 50),
-            manager=manager, text="Edit Line",
+            manager=manager, text="Edit element",
             object_id=SIDEBAR_TITLE_ID, 
             container=self.panel,
             anchors = {'top': 'top',
@@ -49,6 +49,20 @@ class Sidebar:
                         'right': 'left'}
         )
     
+        # edit orb speed label
+        self.orbSpeedLabel = pygame_gui.elements.UILabel(
+            relative_rect=pygame.Rect(0, 35, width, 15),
+            manager=manager, text="Edit Orb Speed",
+            container=self.orbEditPanel
+        )
+
+        self.orbSpeedSlider = pygame_gui.elements.UIHorizontalSlider(
+            relative_rect=pygame.Rect(15, 60, width-30, 15),
+            start_value=1,
+            value_range=[1,5],
+            manager=manager,
+            container=self.orbEditPanel
+        )
         self.setPanelSide(2) # move panel off screen
 
 
