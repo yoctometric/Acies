@@ -1,7 +1,6 @@
 # this file contains all of the classes relevant to lines and orb movement
-from email.mime import base
-from matplotlib.pyplot import grid
 import pygame
+from line import Line
 
 
 # the error value used when == comparing floating point positions
