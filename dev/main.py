@@ -1,7 +1,7 @@
 import pygame
 import pygame_gui
 from toolbar import Toolbar, ERASE_ID, DRAW_LINE_ID, DRAW_ORB_ID, EDIT_ID, DUPLICATE_ID, EYE_DROPPER_ID, CLEAR_BOARD_ID
-from sidebar import Sidebar
+from sidebar import Sidebar, LINEEDIT_VOLUME_SLIDER_ID, LINEEDIT_PITCH_SLIDER_ID, LINEEDIT_QUALITY_SLIDER_ID
 from grid import Grid, ResizableGrid
 import tool
 from line import LineManager
@@ -76,7 +76,17 @@ while is_running:
                 selected_tool = tool.EyeDropper()
             elif CLEAR_BOARD_ID in button_id:
                 print("not really a tool.")
-            
+
+        # handle sidebar orb/line edit events
+        elif event.type == pygame_gui.UI_HORIZONTAL_SLIDER_MOVED:
+            slider_id = event.ui_object_id
+            if LINEEDIT_VOLUME_SLIDER_ID in slider_id:
+                sidebar.editSelectedLine(parameter="volume", value=event.value)
+            elif LINEEDIT_PITCH_SLIDER_ID in slider_id:
+                sidebar.editSelectedLine(parameter="pitch", value=event.value)
+            elif LINEEDIT_QUALITY_SLIDER_ID in slider_id:
+                sidebar.editSelectedLine(parameter="quality", value=event.value)
+
         ui_manager.process_events(event)
 
     ui_manager.update(time_delta)

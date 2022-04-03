@@ -5,7 +5,10 @@ from line import Line, Orb
 SIDEBAR_PANEL_ID = "#sidebar_panel"
 SIDEBAR_TITLE_ID = "#sidebar_title"
 SIDEBAR_ORBEDIT_PANEL_ID = "#sidebar_orbedit_panel"
-SIDEBAR_LINEEDIT_PANEL_ID = "sidebar_lineedit_panel"
+SIDEBAR_LINEEDIT_PANEL_ID = "#sidebar_lineedit_panel"
+LINEEDIT_VOLUME_SLIDER_ID = "#lineedit_volume_slider"
+LINEEDIT_PITCH_SLIDER_ID = "#lineedit_pitch_slider"
+LINEEDIT_QUALITY_SLIDER_ID = "#lineedit_quality_slider"
 
 # defines the sidebar layout and handles appearing/disappearing
 class Sidebar:
@@ -14,6 +17,10 @@ class Sidebar:
         self.width = width
         self.bottomMargin = bottomMargin
         self.panelRect = pygame.Rect(screenDimensions[0] - width, 0, screenDimensions[0], screenDimensions[1] - bottomMargin)
+
+        # set by sidebar when editing
+        self.selectedOrb = None
+        self.selectedLine = None
 
         # this statement defines and passes the panel to the ui manager
         self.panel = pygame_gui.elements.UIPanel(
@@ -92,6 +99,7 @@ class Sidebar:
             start_value=50,
             value_range=[0,100],
             manager=manager,
+            object_id=LINEEDIT_VOLUME_SLIDER_ID,
             container=self.lineEditPanel
         )
 
@@ -108,6 +116,7 @@ class Sidebar:
             start_value=50,
             value_range=[0,100],
             manager=manager,
+            object_id=LINEEDIT_PITCH_SLIDER_ID,
             container=self.lineEditPanel
         )
 
@@ -124,6 +133,7 @@ class Sidebar:
             start_value=50,
             value_range=[0,100],
             manager=manager,
+            object_id=LINEEDIT_QUALITY_SLIDER_ID,
             container=self.lineEditPanel
         )
 
@@ -135,6 +145,7 @@ class Sidebar:
         self.orbEditPanel.show()
         self.lineEditPanel.hide()
         self.setPanelSide(side)
+        self.selectedOrb = orb
 
 
     # shows edit panel for a line
@@ -142,6 +153,7 @@ class Sidebar:
         self.orbEditPanel.hide()
         self.lineEditPanel.show()
         self.setPanelSide(side)
+        self.selectedLine = line
 
 
     # set the side the panel is appearing on. 0: left, 1: right, 2+: off screen (hidden)
@@ -150,3 +162,18 @@ class Sidebar:
         x = (self.screenDimensions[0] - self.width) * side
         self.panel.set_position((x, 0))
         self.panel.set_dimensions((self.width, self.screenDimensions[1] - self.bottomMargin))
+
+        if side > 1:
+            # offscreen, deselect selection
+            self.selectedLine = None
+            self.selectedOrb = None
+
+    
+    # called by main to handle slider events and edit the selected line
+    def editSelectedLine(self, parameter: str, value: float):
+        if parameter == "volume":
+            self.selectedLine.setVolume(value)
+        elif parameter == "pitch":
+            self.selectedLine.setPitch(value)
+        elif parameter == "quality":
+            self.selectedLine.setQuality(value)

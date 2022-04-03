@@ -68,6 +68,11 @@ class Line:
         self.path = [] # point array
         self.orbs = [] # orb array
 
+        # sound parameters
+        self.volume = 1
+        self.pitch = 1
+        self.quality = 1
+
         self.addPoint((0, 0))
 
 
@@ -116,7 +121,21 @@ class Line:
 
     def getBasePos(self) -> tuple:
         return self.basePos
+    
 
+    def setVolume(self, val: float):
+        print("set volume to", val)
+        self.volume = val
+
+
+    def setPitch(self, val: float):
+        print("set pitch to", val)
+        self.pitch = val
+
+
+    def setQuality(self, val: float):
+        print("set quality to", val)
+        self.quality = val
 
 
 class Orb:
