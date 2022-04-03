@@ -5,6 +5,7 @@ from line import Line, Orb
 SIDEBAR_PANEL_ID = "#sidebar_panel"
 SIDEBAR_TITLE_ID = "#sidebar_title"
 SIDEBAR_ORBEDIT_PANEL_ID = "#sidebar_orbedit_panel"
+SIDEBAR_LINEEDIT_PANEL_ID = "sidebar_lineedit_panel"
 
 # defines the sidebar layout and handles appearing/disappearing
 class Sidebar:
@@ -56,6 +57,7 @@ class Sidebar:
             container=self.orbEditPanel
         )
 
+        # slider for orb speed editing
         self.orbSpeedSlider = pygame_gui.elements.UIHorizontalSlider(
             relative_rect=pygame.Rect(15, 60, width-30, 15),
             start_value=1,
@@ -63,18 +65,82 @@ class Sidebar:
             manager=manager,
             container=self.orbEditPanel
         )
+
+        # line edit sub-panel
+        self.lineEditPanel = pygame_gui.elements.UIPanel(
+            relative_rect=pygame.Rect(-2, 50, width, self.panelRect.height - 50),
+            manager=manager, starting_layer_height=1,
+            object_id=SIDEBAR_LINEEDIT_PANEL_ID,
+            container=self.panel,
+            margins={"top": 0, "left": 0, "right": 0, "bottom": 0},
+            anchors= {'top': 'top',
+                        'bottom': 'top',
+                        'left': 'left',
+                        'right': 'left'}
+        )
+
+        # line edit volume text
+        self.orbSpeedLabel = pygame_gui.elements.UILabel(
+            relative_rect=pygame.Rect(0, 35, width, 20),
+            manager=manager, text="Edit Line Volume",
+            container=self.lineEditPanel
+        )
+
+        # slider for line volume editing
+        self.orbSpeedSlider = pygame_gui.elements.UIHorizontalSlider(
+            relative_rect=pygame.Rect(15, 60, width-30, 15),
+            start_value=50,
+            value_range=[0,100],
+            manager=manager,
+            container=self.lineEditPanel
+        )
+
+        # line edit pitch text
+        self.orbSpeedLabel = pygame_gui.elements.UILabel(
+            relative_rect=pygame.Rect(0, 95, width, 20),
+            manager=manager, text="Edit Line Pitch",
+            container=self.lineEditPanel
+        )
+
+        # slider for line pitch editing
+        self.orbSpeedSlider = pygame_gui.elements.UIHorizontalSlider(
+            relative_rect=pygame.Rect(15, 120, width-30, 15),
+            start_value=50,
+            value_range=[0,100],
+            manager=manager,
+            container=self.lineEditPanel
+        )
+
+        # line edit quality text
+        self.orbSpeedLabel = pygame_gui.elements.UILabel(
+            relative_rect=pygame.Rect(0, 155, width, 20),
+            manager=manager, text="Edit Line Quality",
+            container=self.lineEditPanel
+        )
+
+        # slider for line quality editing
+        self.orbSpeedSlider = pygame_gui.elements.UIHorizontalSlider(
+            relative_rect=pygame.Rect(15, 180, width-30, 15),
+            start_value=50,
+            value_range=[0,100],
+            manager=manager,
+            container=self.lineEditPanel
+        )
+
         self.setPanelSide(2) # move panel off screen
 
 
     # shows edit panel for an orb
     def showOrbEdit(self, orb: Orb, side: int):
-
+        self.orbEditPanel.show()
+        self.lineEditPanel.hide()
         self.setPanelSide(side)
 
 
     # shows edit panel for a line
     def showLineEdit(self, line: Line, side: int):
-
+        self.orbEditPanel.hide()
+        self.lineEditPanel.show()
         self.setPanelSide(side)
 
 
