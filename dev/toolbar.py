@@ -1,5 +1,6 @@
 import pygame
 import pygame_gui
+from pygame_gui.core import ObjectID
 
 
 # button id defines. per pygame_gui standards, start with '#' and follow snake_case
@@ -47,7 +48,7 @@ class Toolbar:
             tool_tip_text='draw line',
             manager=manager,
             container = self.panel,
-            object_id=DRAW_LINE_ID
+            object_id=ObjectID(DRAW_LINE_ID)
         )
 
         # move position for next button
@@ -59,7 +60,7 @@ class Toolbar:
             tool_tip_text ='draw orb',
             manager=manager,
             container=self.panel,
-            object_id=DRAW_ORB_ID
+            object_id=ObjectID(DRAW_ORB_ID)
         )
 
         # move position for next button
@@ -71,7 +72,7 @@ class Toolbar:
             tool_tip_text ='edit element',
             manager=manager,
             container=self.panel,
-            object_id=EDIT_ID
+            object_id=ObjectID(EDIT_ID)
         )
 
         # move position for next button
@@ -83,7 +84,7 @@ class Toolbar:
             tool_tip_text='erase',
             manager=manager,
             container=self.panel,
-            object_id=ERASE_ID
+            object_id=ObjectID(ERASE_ID)
         )
 
         # move position for next button
@@ -95,7 +96,7 @@ class Toolbar:
             tool_tip_text='duplicate',
             manager=manager,
             container=self.panel,
-            object_id=DUPLICATE_ID
+            object_id=ObjectID(DUPLICATE_ID)
         )
 
         # move position for next button
@@ -107,7 +108,7 @@ class Toolbar:
             tool_tip_text='eye dropper',
             manager=manager,
             container=self.panel,
-            object_id=EYE_DROPPER_ID
+            object_id=ObjectID(EYE_DROPPER_ID)
         )
 
         # move position for next button
@@ -119,7 +120,7 @@ class Toolbar:
             tool_tip_text='clear board. is this even a tool? maybe should align right and make it a click, confirm popup sorta thing',
             manager=manager,
             container=self.panel,
-            object_id=CLEAR_BOARD_ID
+            object_id=ObjectID(CLEAR_BOARD_ID)
         )
 
         # now load and attach images to their buttons

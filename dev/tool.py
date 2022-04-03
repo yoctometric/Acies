@@ -83,7 +83,6 @@ class Edit(Tool):
 
     # edit click override
     def clickAction(self, lineManager: LineManager, toolbar: Toolbar, sidebar: Sidebar) -> bool:
-        print("editing!")
 
         # get the line that the cursor is over
         targetLine = lineManager.getLineAt((self.x, self.y))

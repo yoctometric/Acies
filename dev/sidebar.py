@@ -51,7 +51,7 @@ class Sidebar:
     
         # edit orb speed label
         self.orbSpeedLabel = pygame_gui.elements.UILabel(
-            relative_rect=pygame.Rect(0, 35, width, 15),
+            relative_rect=pygame.Rect(0, 35, width, 20),
             manager=manager, text="Edit Orb Speed",
             container=self.orbEditPanel
         )
