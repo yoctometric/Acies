@@ -55,12 +55,9 @@ class LineManager:
     # called to complete the placement of a line
     # if pos is equal to the start pos of the line, mark the line as closed
     def completeLine(self, pos: tuple):
-        print("completed line")
         startPoint = self.lineEditing.getPathScreenSpace(self.gridOffset)[0]
-        print(startPoint, pos)
-        if startPoint  == pos:
+        if startPoint == pos:
             self.lineEditing.lineIsClosed = True
-            print("equal")
 
         self.lineEditing = None
     
