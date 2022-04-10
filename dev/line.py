@@ -124,17 +124,14 @@ class Line:
     
 
     def setVolume(self, val: float):
-        print("set volume to", val)
         self.volume = val
 
 
     def setPitch(self, val: float):
-        print("set pitch to", val)
         self.pitch = val
 
 
     def setQuality(self, val: float):
-        print("set quality to", val)
         self.quality = val
 
 
