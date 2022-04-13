@@ -2,7 +2,7 @@ import pygame
 import pygame_gui
 from toolbar import Toolbar, ERASE_ID, DRAW_LINE_ID, DRAW_ORB_ID, EDIT_ID, DUPLICATE_ID, EYE_DROPPER_ID, CLEAR_BOARD_ID
 from sidebar import Sidebar, LINEEDIT_VOLUME_SLIDER_ID, LINEEDIT_PITCH_SLIDER_ID, LINEEDIT_QUALITY_SLIDER_ID
-from grid import Grid, ResizableGrid
+from grid import Grid
 import tool
 from line import LineManager
 
@@ -23,7 +23,7 @@ ui_manager = pygame_gui.UIManager(SCREEN_DIMENSIONS, "theme.json")
 toolbarHeight = 60
 sideBarWidth = 200
 
-grid = ResizableGrid(20, 4, (-5, -5), SCREEN_DIMENSIONS)
+grid = Grid(20, 4, (-5, -5), SCREEN_DIMENSIONS)
 lineManager = LineManager(SCREEN_DIMENSIONS)
 toolbar = Toolbar(ui_manager, toolbarHeight, SCREEN_DIMENSIONS)
 sidebar = Sidebar(ui_manager, sideBarWidth, toolbarHeight, SCREEN_DIMENSIONS)
