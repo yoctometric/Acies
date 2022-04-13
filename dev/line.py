@@ -1,6 +1,6 @@
 # this file contains all of the classes relevant to lines and orb movement
 import pygame
-
+from abc import ABC, abstractmethod # abstract method definition functionality
 
 # the error value used when == comparing floating point positions
 COMPARE_ERROR = 0.01
@@ -67,7 +67,10 @@ class LineManager:
     def getLineAt(self, pos: tuple):
         # loop over all points in each line
         for line in self.lines:
+            
             for point in line.getPathScreenSpace(self.gridOffset):
+                print(point)
+                # grab point x and other point x
                 px, py = pos
                 opx, opy = point
 
@@ -87,7 +90,7 @@ class Line:
     """
 
     def __init__(self, basePos: tuple, initialGridOffset: tuple) -> None:
-        self.basePos = basePos
+        self.basePoint = Point(basePos)
         self.initialGridOfset = initialGridOffset
         self.path = [] # point array
         self.orbs = [] # orb array
@@ -107,15 +110,14 @@ class Line:
             orb.moveTowards()
 
 
-    # adds a point to the line path
+    # adds a point to the line path from a tuple
     def addPoint(self, point: tuple) -> None:
-        self.path.append(point)
+        self.path.append(Point(point))
 
 
     # adds a point from world space (used for line palcement)
     def addPointFromWorldspace(self, pos: tuple, gridOffset: tuple) -> None:
-        p = (pos[0] + self.initialGridOfset[0] - gridOffset[0] - self.basePos[0],
-            pos[1] + self.initialGridOfset[1] - gridOffset[1] - self.basePos[1])
+        p = self.worldToLineSpace(pos, gridOffset)
        
         self.addPoint(p)
 
@@ -135,28 +137,35 @@ class Line:
         # temp render
             pygame.draw.circle(
                 surface=window_surface, color='#00FE10', 
-                center=(self.basePos[0] + xOff, self.basePos[1] + yOff),
+                center=(self.basePoint.position[0] + xOff, self.basePoint.position[1] + yOff),
                 radius=10, width=0
             )
 
     
     def getPath(self) -> list:
         return self.path
-    
 
-    # returns the path converted into screenspace coordinates (grid ofset taken into account)
+    
+    # deletes a point from the line that is at a worldspace position "pos"
+    def deletePoint(self, pos: tuple, gridOffset: tuple):
+        p = self.worldToLineSpace(pos, gridOffset)
+        for point in self.path:
+            if p == point:
+                self.path.remove(point)
+
+    # returns the path converted into screenspace coordinates as tuples (grid ofset taken into account)
     def getPathScreenSpace(self, gridOffset: tuple) -> list:
         p = []
-        xOff = gridOffset[0] - self.initialGridOfset[0] + self.basePos[0]
-        yOff = gridOffset[1] - self.initialGridOfset[1] + self.basePos[1]
+        xOff = gridOffset[0] - self.initialGridOfset[0] + self.basePoint.position[0]
+        yOff = gridOffset[1] - self.initialGridOfset[1] + self.basePoint.position[1]
         for point in self.getPath():
-            p.append((point[0] + xOff, point[1] + yOff))
+            p.append((point.position[0] + xOff, point.position[1] + yOff))
         
         return p
 
 
-    def getBasePos(self) -> tuple:
-        return self.basePos
+    def getBasePoint(self):
+        return self.basePoint
     
 
     def setVolume(self, val: float):
@@ -171,6 +180,13 @@ class Line:
         self.quality = val
 
 
+    # returns tuple position in line space from world space
+    def worldToLineSpace(self, pos: tuple, gridOffset: tuple):
+        p = (pos[0] + self.initialGridOfset[0] - gridOffset[0] - self.basePoint.position[0],
+            pos[1] + self.initialGridOfset[1] - gridOffset[1] - self.basePoint.position[1])
+        return p
+
+
 class Orb:
 
     def __init__(self, start_pos: tuple, speed: float) -> None:
@@ -181,3 +197,36 @@ class Orb:
     def moveTowards(point, delta: float):
         pass
     
+
+# the abstract base class for points
+class AbstractPoint(ABC):
+    # abstract proprty for the x component
+    @property
+    @abstractmethod
+    def position(self):
+        pass
+
+    @position.setter
+    @abstractmethod
+    def position(self, val: tuple):
+        pass
+
+
+# represents a point on any line
+class Point(AbstractPoint):
+    def __init__(self, pos: tuple) -> None:
+        self.position = pos
+
+    @property
+    def position(self):
+        return self._position
+
+    @position.setter
+    def position(self, val: tuple):
+        self._position = val
+
+    def __str__(self) -> str:
+        return f"Point: {self.position}"
+    
+
+
