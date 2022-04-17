@@ -74,7 +74,11 @@ class OrbDrawer(Tool):
 
     # orb click override
     def clickAction(self, lineManager: LineManager, toolbar: Toolbar, sidebar: Sidebar) -> bool:
-        lineManager.getLineAtOrOver((self.x, self.y))
+        l = lineManager.getLineAtOrOver((self.x, self.y))
+        if l is not None:
+            l.addOrb((self.x, self.y), lineManager.gridOffset)
+        else:
+            print("can'd add orb: not over line")
 
 
 # contains functionality for editing orbs and lines

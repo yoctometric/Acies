@@ -155,9 +155,10 @@ class LineManager:
     def getLineAtOrOver(self, pos: tuple):
         # loop over all points in each line
         for line in self.lines:
-            # likely bug in current implementation: closed lines will not check for the closing segment
+
             prevPoint = None
             path = line.getPathScreenSpace(self.gridOffset)
+
             # account for last point if line is closed
             if line.lineIsClosed:
                 prevPoint = path[-1]
@@ -170,26 +171,21 @@ class LineManager:
                         lower = max(prevPoint[1], point[1])
                         upper = min(prevPoint[1], point[1])
                         if pos[1] <= lower and pos[1] >= upper:
-                            print("vert match")
+                            return line
 
                     # horizontal test
                     if prevPoint[1] == point[1] == pos[1]:
                         right = max(prevPoint[0], point[0])
                         left =  min(prevPoint[0], point[0])
                         if pos[0] <= right and pos[0] >= left:
-                            print("hot match")
-
-                    # dsq1 = ((pos[0] - prevPoint[0])**2) + ((pos[1] - prevPoint[1])**2)
-                    # dsq2 = ((point[0] - pos[0])**2) + ((point[1] - pos[1])**2)
-                    # dsqLine = ((point[0] - prevPoint[0])**2) + ((point[1] - prevPoint[1])**2)
-
-                    # print(abs((dsq1 + dsq2) - dsqLine))
-                    # if abs((dsq1 + dsq2) - dsqLine) < COMPARE_ERROR:
-                    #     # then the point lies between the two lines.
-                    #     return Line
+                            return line
 
                 # save prevPoint for next iter
                 prevPoint = point
+
+            # no line found
+            return None
+
 
 
 class Line:
@@ -230,7 +226,9 @@ class Line:
         self.addPoint(p)
 
     # adds an orb to the line path
-    def addOrb(self, orb):
+    def addOrb(self, screenPos: tuple, gridOffset: tuple):
+        orb = Orb(self.worldToLineSpace(screenPos, gridOffset))
+
         self.orbs.append(orb)
 
     
@@ -242,10 +240,17 @@ class Line:
         if len(pointsSP) > 1:
             pygame.draw.lines(window_surface, '#00FE10', self.lineIsClosed, pointsSP, width=10)
         else:
-        # temp render
             pygame.draw.circle(
                 surface=window_surface, color='#00FE10', 
                 center=(self.basePoint.position[0] + xOff, self.basePoint.position[1] + yOff),
+                radius=10, width=0
+            )
+        
+        # draw all orbs
+        for o in self.orbs:
+            pygame.draw.circle(
+                surface=window_surface, color='#000000', 
+                center=self.lineToWorldSpace(o.position, gridOffset),
                 radius=10, width=0
             )
 
@@ -293,18 +298,24 @@ class Line:
         p = (pos[0] + self.initialGridOfset[0] - gridOffset[0] - self.basePoint.position[0],
             pos[1] + self.initialGridOfset[1] - gridOffset[1] - self.basePoint.position[1])
         return p
+    
+    # returns tuple position in world space from line space
+    def lineToWorldSpace(self, pos: tuple, gridOffset: tuple):
+        p = (pos[0] + gridOffset[0] - self.initialGridOfset[0] + self.basePoint.position[0],
+            pos[1] + gridOffset[1] - self.initialGridOfset[1] + self.basePoint.position[1])
+        return p
 
 
 class Orb:
 
-    def __init__(self, start_pos: tuple, speed: float) -> None:
-        self.position = start_pos
+    def __init__(self, startPos: tuple, speed: float=1) -> None:
+        self.position = startPos
         self.speed = speed
 
     # moves the orb towards its next point
     def moveTowards(point, delta: float):
         pass
-    
+
 
 # the abstract base class for points
 class AbstractPoint(ABC):
