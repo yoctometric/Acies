@@ -69,7 +69,6 @@ class LineManager:
         for line in self.lines:
             
             for point in line.getPathScreenSpace(self.gridOffset):
-                print(point)
                 # grab point x and other point x
                 px, py = pos
                 opx, opy = point
