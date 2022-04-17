@@ -12,4 +12,9 @@ drawing lines in an arrangement to create a melody or rhythm.
  - Navigate to dev/ and run `python main.py`
  - If everything is working properly, acies should open in a new window
 
+## Usage  
+ - Place lines with the line tool
+ - Edit line proprties with the edit tool
+ - Add orbs to lines with the orb tool
+
 Created by Will Cunningham, Sam Waggoner, Dylan Haughton, Michael Wilkinson, and Callen Shaeffer
