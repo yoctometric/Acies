@@ -109,6 +109,14 @@ class Eraser(Tool):
 
         # load image for Eraser
         super().setCursorImage("resources/eraser_cursor.png")  
+    
+    # TODO: Allow users to drag on the grid holding the eraser and delete parts of lines
+    def dragAction(self, lineManager: LineManager, toolbar: Toolbar, sidebar: Sidebar) -> bool:
+        # get cursor location
+        # if cursor location is close to a dot (less than half the distance between dots on the grid):
+        #   get line at cursor position
+        #   
+        pass
 
 
 # contains functionality for duplicating lines and their orbs
