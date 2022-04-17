@@ -93,7 +93,7 @@ class Edit(Tool):
     def clickAction(self, lineManager: LineManager, toolbar: Toolbar, sidebar: Sidebar) -> bool:
 
         # get the line that the cursor is over
-        targetLine = lineManager.getLineAt((self.x, self.y))
+        targetLine = lineManager.getLineAtOrOver((self.x, self.y))
 
         # calc the side to show the sidebar on
         side = 1
