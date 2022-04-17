@@ -116,7 +116,7 @@ class LineManager:
             self.prevPos = pos
 
         else:
-            print("Tried to place a diagonal or overlapping line.")
+            print("Tried to place a diagonal or crossed line.")
             return
 
 
@@ -227,7 +227,7 @@ class Line:
 
     # adds an orb to the line path
     def addOrb(self, screenPos: tuple, gridOffset: tuple):
-        orb = Orb(self.worldToLineSpace(screenPos, gridOffset))
+        orb = Orb(self.worldToLineSpace(screenPos, gridOffset),0)
 
         self.orbs.append(orb)
 
@@ -306,46 +306,61 @@ class Line:
         return p
 
 
-class Orb:
+# the abstract base class (ABC) for Points and Orbs
+class LineMember(ABC):
+    def __init__(self, pos:tuple):
+        self.position = pos
 
-    def __init__(self, startPos: tuple, speed: float=1) -> None:
-        self.position = startPos
+    @abstractmethod
+    def getPosition(self):
+        pass
+
+    @abstractmethod
+    def move(self,pos:tuple):
+        pass
+
+    @abstractmethod
+    def delete(self,pos:tuple):
+        pass
+
+# concrete class of Point, represents a point on any line
+class Point(LineMember):
+    def __init__(self, pos:tuple) -> None:
+        super().__init__(pos)
+        self.position = pos
+    
+    def getPosition(self):
+        return self.position
+
+    # for future capabilities of dragging and moving lines as a whole
+    def move(self,pos:tuple):
+        self.position[0] += pos[0]
+        self.position[1] += pos[1]
+
+    def delete(self,pos:tuple):
+        self.position = (-1,-1)
+
+    def __str__(self) -> str:
+        return f"Point: {self.position}"
+
+# concrete class of Orb, represents an orb on any line
+class Orb(LineMember):
+
+    def __init__(self, start_pos:tuple, speed:float) -> None:
+        self.position = start_pos
         self.speed = speed
+
+    def getPosition(self):
+        return self.position
+
+    # for future capabilities of dragging and moving lines as a whole
+    def move(self,pos:tuple):
+        self.position[0] += pos[0]
+        self.position[1] += pos[1]
+
+    def delete(self,pos:tuple):
+        self.position = (-1,-1)
 
     # moves the orb towards its next point
     def moveTowards(point, delta: float):
         pass
-
-
-# the abstract base class for points
-class AbstractPoint(ABC):
-    # abstract proprty for the x component
-    @property
-    @abstractmethod
-    def position(self):
-        pass
-
-    @position.setter
-    @abstractmethod
-    def position(self, val: tuple):
-        pass
-
-
-# concrete class of Point, represents a point on any line
-class Point(AbstractPoint):
-    def __init__(self, pos: tuple) -> None:
-        self.position = pos
-
-    @property
-    def position(self):
-        return self._position
-
-    @position.setter
-    def position(self, val: tuple):
-        self._position = val
-
-    def __str__(self) -> str:
-        return f"Point: {self.position}"
-    
-
-
