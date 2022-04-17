@@ -305,6 +305,10 @@ class Line:
             pos[1] + gridOffset[1] - self.initialGridOfset[1] + self.basePoint.position[1])
         return p
 
+    # in the future, if we decide to be able to drag and move lines
+    def move(delta:tuple) -> None:
+        pass
+
 
 # the abstract base class (ABC) for Points and Orbs
 class LineMember(ABC):
@@ -316,11 +320,11 @@ class LineMember(ABC):
         pass
 
     @abstractmethod
-    def move(self,pos:tuple):
+    def move(self,delta:tuple):
         pass
 
     @abstractmethod
-    def delete(self,pos:tuple):
+    def delete(self):
         pass
 
 # concrete class of Point, represents a point on any line
@@ -333,11 +337,11 @@ class Point(LineMember):
         return self.position
 
     # for future capabilities of dragging and moving lines as a whole
-    def move(self,pos:tuple):
-        self.position[0] += pos[0]
-        self.position[1] += pos[1]
+    def move(self,delta:tuple):
+        self.position[0] += delta[0]
+        self.position[1] += delta[1]
 
-    def delete(self,pos:tuple):
+    def delete(self):
         self.position = (-1,-1)
 
     def __str__(self) -> str:
@@ -354,13 +358,13 @@ class Orb(LineMember):
         return self.position
 
     # for future capabilities of dragging and moving lines as a whole
-    def move(self,pos:tuple):
-        self.position[0] += pos[0]
-        self.position[1] += pos[1]
+    def move(self,delta:tuple):
+        self.position[0] += delta[0]
+        self.position[1] += delta[1]
 
-    def delete(self,pos:tuple):
+    def delete(self):
         self.position = (-1,-1)
 
     # moves the orb towards its next point
-    def moveTowards(point, delta: float):
+    def travelTowards(point:tuple, delta: float):
         pass
