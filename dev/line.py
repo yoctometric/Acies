@@ -1,6 +1,7 @@
 # this file contains all of the classes relevant to lines and orb movement
 import pygame
 from abc import ABC, abstractmethod # abstract method definition functionality
+from math import sqrt
 
 # the error value used when == comparing floating point positions
 COMPARE_ERROR = 0.01
@@ -62,7 +63,7 @@ class LineManager:
         self.lineEditing = None
     
 
-    # checks for if a line is already occupying a space
+    # checks for if a point on a line is already occupying a space
     # if performance becomes a problem, this is the culprit. Implement quadtree?
     def getLineAt(self, pos: tuple):
         # loop over all points in each line
@@ -81,6 +82,47 @@ class LineManager:
         # no overlapping, return None
         return None
 
+
+    # checks for if pos is between two points of any line or equal to those points
+    # more expensive than getLineAt
+    def getLineAtOrOver(self, pos: tuple):
+        # loop over all points in each line
+        for line in self.lines:
+            # likely bug in current implementation: closed lines will not check for the closing segment
+            prevPoint = None
+            path = line.getPathScreenSpace(self.gridOffset)
+            # account for last point if line is closed
+            if line.lineIsClosed:
+                prevPoint = path[-1]
+
+            for point in path:
+                if prevPoint is not None:
+                    # since lines are clamped to horizontal and vertical only...
+                    # vertical test:
+                    if prevPoint[0] == point[0] == pos[0]:
+                        lower = max(prevPoint[1], point[1])
+                        upper = min(prevPoint[1], point[1])
+                        if pos[1] <= lower and pos[1] >= upper:
+                            print("vert match")
+
+                    # horizontal test
+                    if prevPoint[1] == point[1] == pos[1]:
+                        right = max(prevPoint[0], point[0])
+                        left =  min(prevPoint[0], point[0])
+                        if pos[0] <= right and pos[0] >= left:
+                            print("hot match")
+
+                    # dsq1 = ((pos[0] - prevPoint[0])**2) + ((pos[1] - prevPoint[1])**2)
+                    # dsq2 = ((point[0] - pos[0])**2) + ((point[1] - pos[1])**2)
+                    # dsqLine = ((point[0] - prevPoint[0])**2) + ((point[1] - prevPoint[1])**2)
+
+                    # print(abs((dsq1 + dsq2) - dsqLine))
+                    # if abs((dsq1 + dsq2) - dsqLine) < COMPARE_ERROR:
+                    #     # then the point lies between the two lines.
+                    #     return Line
+
+                # save prevPoint for next iter
+                prevPoint = point
 
 
 class Line:

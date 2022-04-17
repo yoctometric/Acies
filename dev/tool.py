@@ -72,6 +72,10 @@ class OrbDrawer(Tool):
         # load image for OrbDrawer
         super().setCursorImage("resources/orb_drawer_cursor.png")
 
+    # orb click override
+    def clickAction(self, lineManager: LineManager, toolbar: Toolbar, sidebar: Sidebar) -> bool:
+        lineManager.getLineAtOrOver((self.x, self.y))
+
 
 # contains functionality for editing orbs and lines
 class Edit(Tool):
