@@ -8,11 +8,16 @@ from toolbar import Toolbar
 
 # the parent class of all tools. main makes it follow the mouse
 class Tool():
-    def __init__(self) -> None:
+    def __init__(self, lineManager: LineManager, sidebar: Sidebar) -> None:
         self.x = 0
         self.y = 0
         self.cursor_image = None # child instance sets after super init
         self.cursor_rect = None
+
+        # when a new tool is initialized, reset some things
+        sidebar.hide()
+        lineManager.lineEditing = None
+
 
 
     # called by main to update tool position
@@ -27,7 +32,6 @@ class Tool():
         print("default tool action")
         return True
     
-
     
 
     # performs tool hover function. overridden by some children (mouse motion triggers this)
@@ -53,8 +57,8 @@ class Tool():
 
 # contains functionality for drawing lines
 class LineDrawer(Tool):
-    def __init__(self) -> None:
-        super().__init__()
+    def __init__(self, lineManager: LineManager, sidebar: Sidebar) -> None:
+        super().__init__(lineManager, sidebar)
 
         # load image for LineDrawer
         super().setCursorImage("resources/line_drawer_cursor.png")
@@ -66,8 +70,8 @@ class LineDrawer(Tool):
 
 # contains functionality for drawing orbs on lines
 class OrbDrawer(Tool):
-    def __init__(self) -> None:
-        super().__init__()
+    def __init__(self, lineManager: LineManager, sidebar: Sidebar) -> None:
+        super().__init__(lineManager, sidebar)
 
         # load image for OrbDrawer
         super().setCursorImage("resources/orb_drawer_cursor.png")
@@ -83,8 +87,8 @@ class OrbDrawer(Tool):
 
 # contains functionality for editing orbs and lines
 class Edit(Tool):
-    def __init__(self) -> None:
-        super().__init__()
+    def __init__(self, lineManager: LineManager, sidebar: Sidebar) -> None:
+        super().__init__(lineManager, sidebar)
 
         # load image for Edit tool
         super().setCursorImage("resources/edit_cursor.png")
@@ -108,8 +112,8 @@ class Edit(Tool):
 
 # contains fucntionality for erasing lines and orbs
 class Eraser(Tool):
-    def __init__(self) -> None:
-        super().__init__()
+    def __init__(self, lineManager: LineManager, sidebar: Sidebar) -> None:
+        super().__init__(lineManager, sidebar)
 
         # load image for Eraser
         super().setCursorImage("resources/eraser_cursor.png")  
@@ -125,8 +129,8 @@ class Eraser(Tool):
 
 # contains functionality for duplicating lines and their orbs
 class Duplicator(Tool):
-    def __init__(self) -> None:
-        super().__init__()
+    def __init__(self, lineManager: LineManager, sidebar: Sidebar) -> None:
+        super().__init__(lineManager, sidebar)
 
         # load image for Duplicator
         super().setCursorImage("resources/duplicator_cursor.png")  
@@ -134,8 +138,8 @@ class Duplicator(Tool):
 
 # contains functionality for eye dropper
 class EyeDropper(Tool):
-    def __init__(self) -> None:
-        super().__init__()
+    def __init__(self, lineManager: LineManager, sidebar: Sidebar) -> None:
+        super().__init__(lineManager, sidebar)
 
         # load image for Eye dropper
         super().setCursorImage("resources/eye_dropper_cursor.png")  

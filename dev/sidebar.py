@@ -177,3 +177,9 @@ class Sidebar:
             self.selectedLine.setPitch(value)
         elif parameter == "quality":
             self.selectedLine.setQuality(value)
+    
+    
+    def hide(self):
+        self.selectedLine = None
+        self.selectedOrb = None
+        self.setPanelSide(2)
