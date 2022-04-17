@@ -155,7 +155,7 @@ class LineManager:
     def getLineAtOrOver(self, pos: tuple):
         # loop over all points in each line
         for line in self.lines:
-
+            
             prevPoint = None
             path = line.getPathScreenSpace(self.gridOffset)
 
@@ -183,8 +183,8 @@ class LineManager:
                 # save prevPoint for next iter
                 prevPoint = point
 
-            # no line found
-            return None
+        # no line found
+        return None
 
 
 

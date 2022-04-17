@@ -82,7 +82,7 @@ class OrbDrawer(Tool):
         if l is not None:
             l.addOrb((self.x, self.y), lineManager.gridOffset)
         else:
-            print("can'd add orb: not over line")
+            print("can't add orb: not over line")
 
 
 # contains functionality for editing orbs and lines
