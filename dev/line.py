@@ -164,7 +164,7 @@ class LineManager:
     def getLineAtOrOver(self, pos: tuple):
         # loop over all points in each line
         for line in self.lines:
-            
+
             prevPoint = None
             path = line.getPathScreenSpace(self.gridOffset)
 
@@ -336,6 +336,7 @@ class LineMember(ABC):
     def delete(self):
         pass
 
+
 # concrete class of Point, represents a point on any line
 class Point(LineMember):
     def __init__(self, pos:tuple) -> None:
@@ -355,6 +356,7 @@ class Point(LineMember):
 
     def __str__(self) -> str:
         return f"Point: {self.position}"
+
 
 # concrete class of Orb, represents an orb on any line
 class Orb(LineMember):
