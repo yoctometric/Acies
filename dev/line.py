@@ -263,8 +263,9 @@ class Line:
     def deletePoint(self, pos: tuple, gridOffset: tuple):
         p = self.worldToLineSpace(pos, gridOffset)
         for point in self.path:
-            if p == point:
+            if p == point.position:
                 self.path.remove(point)
+
 
     # returns the path converted into screenspace coordinates as tuples (grid ofset taken into account)
     def getPathScreenSpace(self, gridOffset: tuple) -> list:
