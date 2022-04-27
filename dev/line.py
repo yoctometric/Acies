@@ -12,6 +12,15 @@ class X_and_Y(enum.Enum):
   x = 1
   y = 2
   
+"""
+    Structure:
+    LineManager.lines[]
+        Line.path[]
+            Point.position (tuple)
+        Line.orbs[]
+            Orb.position (tuple)
+            Orb.speed (float)
+"""
 
 class LineManager:
     """
