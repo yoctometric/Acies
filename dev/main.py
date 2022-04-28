@@ -1,6 +1,6 @@
 import pygame
 import pygame_gui
-from toolbar import Toolbar, ERASE_ID, DRAW_LINE_ID, DRAW_ORB_ID, EDIT_ID, DUPLICATE_ID, EYE_DROPPER_ID, CLEAR_BOARD_ID
+from toolbar import Toolbar, ERASE_ID, DRAW_LINE_ID, DRAW_ORB_ID, EDIT_ID, DUPLICATE_ID, EYE_DROPPER_ID, CLEAR_BOARD_ID, EXPORT_BOARD_ID
 from sidebar import Sidebar, LINEEDIT_VOLUME_SLIDER_ID, LINEEDIT_PITCH_SLIDER_ID, LINEEDIT_QUALITY_SLIDER_ID
 from grid import Grid
 import tool
@@ -76,6 +76,9 @@ while is_running:
                 selected_tool = tool.EyeDropper(lineManager, sidebar)
             elif CLEAR_BOARD_ID in button_id:
                 print("not really a tool.")
+            elif EXPORT_BOARD_ID in button_id:
+                print("Exported Board!")
+                selected_tool = tool.ExportBoard(lineManager, sidebar)
 
         # handle sidebar orb/line edit events
         elif event.type == pygame_gui.UI_HORIZONTAL_SLIDER_MOVED:

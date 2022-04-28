@@ -5,6 +5,7 @@ import pygame
 from line import Line, LineManager, Orb
 from sidebar import Sidebar
 from toolbar import Toolbar
+from datetime import datetime
 
 # the parent class of all tools. main makes it follow the mouse
 class Tool():
@@ -43,9 +44,10 @@ class Tool():
     def drawTool(self, window_surface: pygame.Surface):
         # align rect so that the bottom left corner of the image is at the cursor
         r = self.cursor_rect
-        r.x = self.x - r.width
-        r.y = self.y - r.height
-        window_surface.blit(self.cursor_image, r)
+        if r is not None:
+            r.x = self.x - r.width
+            r.y = self.y - r.height
+            window_surface.blit(self.cursor_image, r)
     
 
     # called by child to load up and set the cursor image of the tool
@@ -143,3 +145,22 @@ class EyeDropper(Tool):
 
         # load image for Eye dropper
         super().setCursorImage("resources/eye_dropper_cursor.png")  
+
+
+# contains functionality for export board. writes to a file with all lines, points, and orbs
+class ExportBoard(Tool):
+    def __init__(self, lineManager: LineManager, sidebar: Sidebar) -> None:
+        super().__init__(lineManager, sidebar)
+        now = datetime.now()
+        dt_str = now.strftime("%d-%m-%Y_%H-%M-%S")
+        f = open("ExportedBoard_" + dt_str + ".txt", "w")
+        for line in lineManager.lines:
+            f.write("Line: \n")
+            for point in line.path:
+                f.write("\tPoint: \n")
+                f.write("\t\tPos: "+str(point.position[0])+", "+str(point.position[1])+"\n")
+            for orb in line.orbs:
+                f.write("\torb: \n")
+                f.write("\t\tPos: "+str(orb.position[0])+", "+str(orb.position[1])+"\n")
+                f.write("\t\tSpeed: "+str(orb.speed)+"\n")
+        f.close()
