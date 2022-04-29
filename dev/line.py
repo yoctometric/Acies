@@ -225,6 +225,7 @@ class Line:
 
     # adds a point to the line path from a tuple
     def addPoint(self, point: tuple) -> None:
+        assert type(point) == tuple
         self.path.append(Point(point))
 
 
@@ -269,11 +270,14 @@ class Line:
 
     
     # deletes a point from the line that is at a worldspace position "pos"
-    def deletePoint(self, pos: tuple, gridOffset: tuple):
+    def deletePoint(self, pos: tuple, gridOffset: tuple) -> bool:
         p = self.worldToLineSpace(pos, gridOffset)
         for point in self.path:
             if p == point.position:
                 self.path.remove(point)
+                return True
+        
+        return False
 
 
     # returns the path converted into screenspace coordinates as tuples (grid ofset taken into account)
