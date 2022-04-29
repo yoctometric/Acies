@@ -11,6 +11,7 @@ ERASE_ID = "#erase_button"
 DUPLICATE_ID = "#duplicate_line_button"
 EYE_DROPPER_ID = "#eye_dropper_button"
 CLEAR_BOARD_ID = "#clear_board_button"
+EXPORT_BOARD_ID = "#export_board_button"
 
 
 # defines the toolbar ui layout
@@ -121,6 +122,18 @@ class Toolbar:
             manager=manager,
             container=self.panel,
             object_id=ObjectID(CLEAR_BOARD_ID)
+        )
+
+        # move position for next button
+        button_x += button_size[0] + button_x_spacing
+        # export board TODO: include relevant information and ability to import board
+        self.clear_board_button = pygame_gui.elements.UIButton(
+            relative_rect=pygame.Rect((button_x, button_y), button_size),
+            text="",
+            tool_tip_text='Export Board',
+            manager=manager,
+            container=self.panel,
+            object_id=ObjectID(EXPORT_BOARD_ID)
         )
 
         # now load and attach images to their buttons

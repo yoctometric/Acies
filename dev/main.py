@@ -1,8 +1,8 @@
 import pygame
 import pygame_gui
-from toolbar import Toolbar, ERASE_ID, DRAW_LINE_ID, DRAW_ORB_ID, EDIT_ID, DUPLICATE_ID, EYE_DROPPER_ID, CLEAR_BOARD_ID
+from toolbar import Toolbar, ERASE_ID, DRAW_LINE_ID, DRAW_ORB_ID, EDIT_ID, DUPLICATE_ID, EYE_DROPPER_ID, CLEAR_BOARD_ID, EXPORT_BOARD_ID
 from sidebar import Sidebar, LINEEDIT_VOLUME_SLIDER_ID, LINEEDIT_PITCH_SLIDER_ID, LINEEDIT_QUALITY_SLIDER_ID
-from grid import Grid, ResizableGrid
+from grid import Grid
 import tool
 from line import LineManager
 
@@ -23,13 +23,13 @@ ui_manager = pygame_gui.UIManager(SCREEN_DIMENSIONS, "theme.json")
 toolbarHeight = 60
 sideBarWidth = 200
 
-grid = ResizableGrid(20, 4, (-5, -5), SCREEN_DIMENSIONS)
+grid = Grid(20, 4, (-5, -5), SCREEN_DIMENSIONS)
 lineManager = LineManager(SCREEN_DIMENSIONS)
 toolbar = Toolbar(ui_manager, toolbarHeight, SCREEN_DIMENSIONS)
 sidebar = Sidebar(ui_manager, sideBarWidth, toolbarHeight, SCREEN_DIMENSIONS)
 
 # initialize tool to LineDrawer
-selected_tool = tool.LineDrawer()
+selected_tool = tool.LineDrawer(lineManager, sidebar)
 
 clock = pygame.time.Clock()
 is_running = True
@@ -63,19 +63,22 @@ while is_running:
         elif event.type == pygame_gui.UI_BUTTON_PRESSED:
             button_id = event.ui_object_id # gets parent.element, so test by 'in' not '=='
             if DRAW_LINE_ID in button_id:
-                selected_tool = tool.LineDrawer()
+                selected_tool = tool.LineDrawer(lineManager, sidebar)
             elif DRAW_ORB_ID in button_id:
-                selected_tool = tool.OrbDrawer()
+                selected_tool = tool.OrbDrawer(lineManager, sidebar)
             elif EDIT_ID in button_id:
-                selected_tool = tool.Edit()
+                selected_tool = tool.Edit(lineManager, sidebar)
             elif ERASE_ID in button_id:
-                selected_tool = tool.Eraser()
+                selected_tool = tool.Eraser(lineManager, sidebar)
             elif DUPLICATE_ID in button_id:
-                selected_tool = tool.Duplicator()
+                selected_tool = tool.Duplicator(lineManager, sidebar)
             elif EYE_DROPPER_ID in button_id:
-                selected_tool = tool.EyeDropper()
+                selected_tool = tool.EyeDropper(lineManager, sidebar)
             elif CLEAR_BOARD_ID in button_id:
                 print("not really a tool.")
+            elif EXPORT_BOARD_ID in button_id:
+                print("Exported Board!")
+                selected_tool = tool.ExportBoard(lineManager, sidebar)
 
         # handle sidebar orb/line edit events
         elif event.type == pygame_gui.UI_HORIZONTAL_SLIDER_MOVED:
