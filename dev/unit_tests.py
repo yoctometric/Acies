@@ -1,5 +1,9 @@
 import unittest
 from line import Line, LineManager, Point, Orb
+from tool import Tool
+from sidebar import Sidebar
+from pygame_gui import UIManager
+from toolbar import Toolbar
 
 class TestLine(unittest.TestCase):
     
@@ -38,6 +42,48 @@ class TestLine(unittest.TestCase):
         return super().tearDown()
 
 
+
+class testTool(unittest.TestCase):
+    def setUp(self) -> None:
+        self.tool = Tool(LineManager((0,0)),Sidebar(UIManager((0,0), "theme.json"),0 , 0, (0,0)))
+
+        return super().setUp()
+
+    def testClickAction(self):
+        #Valid
+        success = self.tool.clickAction(LineManager((0,0)),Sidebar(UIManager((0,0), "theme.json")), Toolbar(UIManager((0,0), 0, (0,0)), Sidebar(UIManager((0,0), 0, (0,0)), 0, 0, (0,0))))
+        self.assertTrue(success, "Action failed")
+
+        #Invalid
+        self.assertRaises(TypeError, self.tool.clickAction, "testdummy", Toolbar(UIManager((0,0), 0, (0,0)), Sidebar(UIManager((0,0), 0, (0,0)), 0, 0, (0,0))), "Worked Unexpectedly"  )
+        
+    def testHoverAction(self):
+        #Valid
+        success = self.tool.hoverAction(LineManager((0,0)))
+        self.assertTrue(success, "Action failed")
+
+        #Invalid
+        self.assertRaises(TypeError, self.tool.clickAction, "testdummy", "Worked Unexpectedly")
+
+    def testDrawTool(self):
+        #Valid
+        success = self.tool.drawTool(window_surface)
+        self.assertTrue(success, "Action failed")
+
+        #Invalid
+        self.assertRaises(TypeError, self.tool.drawTool, "testdummy", "Worked unexpectedly")
+
+    def setCursorImage(self):
+        #Valid
+        success = self.tool.setCursorImage(filePath="xd")
+        self.assertTrue(success, "Action failed")
+
+        #Invalid
+        self.assertRaises(TypeError, self.tool.setCursorImage, 1, "Worked unexpectedly")
+
+
+    def tearDown(self) -> None:
+        return super().tearDown()
 
 if __name__ == '__main__':
     unittest.main()
