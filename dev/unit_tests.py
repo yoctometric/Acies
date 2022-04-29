@@ -38,6 +38,57 @@ class TestLine(unittest.TestCase):
         return super().tearDown()
 
 
+class TestLineManager(unittest.TestCase):
+    
+    def setUp(self):
+        # Overview---
+            # add the start of a line
+            # add a new point on the line
+            # add a new point on the line
+            # add a new point on the start of the line, concluding the line
+
+            # FAIL add the start of a new line at a point along an existing line 
+        
+            # FAIL add the start of a new line at the start of an existing line
+            
+            # add the start of a new line
+            # FAIL add a new point on the line that crosses the first line
+    
+        self.testLineManager = LineManager((100,100))
+
+    def test_addLine(self):
+        # Testing Invalid Inputs:
+        # with self.assertRaises(TypeError):
+        #     self.testListNone[:1]
+        # print(self.testLineManager.addLine((2,3,4)))
+        self.assertRaises(ValueError, self.testLineManager.addLine((2,3,4)))
+        # self.testLineManager.addLine((2,10))
+        # self.assertself.testLineManager.addLine(())
+
+    def test_overlapping(self):
+        pass
+
+    def test_completeLine(self):
+        pass
+
+    def test_getLineAt(self):
+        pass
+
+    def test_getLineAtOrOver(self):
+        pass
+
+
+
+
+    # IMPORTANT: The function crosses() is IN-PROGRESS so it is currently nonfunctional.
+    # This test is for when crosses() is debugged and fixed, to see if it works then.
+    def test_crosses(self):
+        # # Valid Test(s):
+        # self.assertTrue(self.testLineManager.crosses((5,15),(7,5))
+        # # Invalid Test(s):
+        # self.assertFalse(x)
+        pass
+
 
 if __name__ == '__main__':
     unittest.main()
