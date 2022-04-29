@@ -45,8 +45,10 @@ class LineManager:
         for line in self.lines:
             line.renderLine(window_surface, gridOffset)
 
-    # determine if a line would cross an existing line, ***currently NOT WORKING***
+    # determine if a line would cross an existing line, ***currently NOT WORKING, IP***
     def crosses(self, prev:tuple, curr:tuple) -> bool:
+        print("Prev: " + str(prev))
+        print("Curr: " + str(curr))
         for line in self.lines:
             for i in range(len(line.path)-1):
                 """
@@ -97,6 +99,15 @@ class LineManager:
     # add line. returns true if valid placement, false if placement failed
     # if a line is currently being added to, instead adds a point to that line
     def addLine(self, pos: tuple) -> bool:
+        # make sure paramaters are correct
+        t = pos[1] + pos[2]
+        try:
+            t = pos[3]
+            print("Exception: too many elements in tuple argument, should be 2")
+            return -1
+        except:
+            pass
+
         # print("Line editing: " + str(self.lineEditing))
         # print("PrevPos: " + str(self.prevPos))
         # if there is already a line, (and not line we are editing rn) return
@@ -106,27 +117,27 @@ class LineManager:
             # user clicked back on start line, finish line
             if overlapping == self.lineEditing:
                 self.completeLine(pos)
-            return
-        
+         
         # if there is no line being edited right now, place new line and set as line to edit.
         if self.lineEditing is None:
             # print("LineEditing is none")
             line = Line(pos, self.gridOffset)
             self.lines.append(line)
-
             self.prevPos = pos
             # print("PrevPos assigned: " + str(self.prevPos))
             self.lineEditing = line
+            return 0
 
         # if the new point wouldn't be diagonal AND if the new line wouldn't overlap, then append point to line
         elif (self.prevPos[0] == pos[0] or self.prevPos[1] == pos[1]) and not\
-             self.crosses(self.prevPos,pos):
+            self.crosses(self.prevPos,pos):
             self.lineEditing.addPointFromWorldspace(pos, self.gridOffset)
             self.prevPos = pos
+            return 0
 
         else:
             print("Tried to place a diagonal or crossed line.")
-            return
+            return -1
 
 
     # called to complete the placement of a line
