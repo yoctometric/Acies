@@ -1,5 +1,6 @@
 import unittest
 from line import Line, LineManager, Point, Orb
+from grid import Grid
 
 class TestLine(unittest.TestCase):
     
@@ -57,16 +58,41 @@ class TestLine(unittest.TestCase):
         # Invalid
         self.assertRaises(TypeError, self.line.getPathScreenSpace, "no", "failed to raise type error")
 
-
-
     def tearDown(self) -> None:
         return super().tearDown()
 
 
-class TestTool(unittest.TestCase):
-    pass
+class TestGrid(unittest.TestCase):
+
+    def setUp(self) -> None:
+        self.grid = Grid(20, 4, (0, 0), (1024, 600))
+
+        return super().setUp()
 
 
+    # tests panning the grid
+    def testPanGrid(self):
+        # Valid
+        self.grid.panGrid((5, 5))
+        self.assertEqual(self.grid.gridOffset, (5, 5), "Pan did not update grid offset correctly")
+
+        # Invalid
+        self.assertRaises(TypeError, self.grid.panGrid, "left", "Did not raise error on string pan")
+        
+    
+    # tests rounding a position to a grid point
+    def testGetNearestPosition(self):
+        # Valid
+        snapped = self.grid.getNearestPosition((101, 101))
+        self.assertEqual(snapped, (100, 100), "did not clamp correctly")
+
+        # Invalid
+        self.assertRaises(TypeError, self.grid.getNearestPosition, 1, "did not raise type error")
+
+
+
+    def tearDown(self) -> None:
+        return super().tearDown()  
 
 
 if __name__ == '__main__':
