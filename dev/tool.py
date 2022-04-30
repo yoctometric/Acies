@@ -41,8 +41,8 @@ class Tool():
     
 
     # performs tool hover function. overridden by some children (mouse motion triggers this)
-    def hoverAction(self, lineManager: LineManager) -> None:
-        pass
+    def hoverAction(self, lineManager: LineManager) -> bool:
+        return True
 
 
     # called by main to draw the cursor image of the tool
