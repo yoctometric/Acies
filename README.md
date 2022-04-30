@@ -18,3 +18,9 @@ drawing lines in an arrangement to create a melody or rhythm.
  - Add orbs to lines with the orb tool
 
 Created by Will Cunningham, Sam Waggoner, Dylan Haughton, Michael Wilkinson, and Callen Shaeffer
+
+
+## Testing
+ - Make sure `unittest` is installed
+ - Navigate to dev/ and run `python unit_tests.py`
+ 

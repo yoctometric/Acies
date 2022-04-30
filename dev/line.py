@@ -1,7 +1,9 @@
+# FOR UNIT TESTS commented lines 91 and 141
 # this file contains all of the classes relevant to lines and orb movement
 import pygame
 from abc import ABC, abstractmethod # abstract method definition functionality
 from math import sqrt
+import inspect
 
 # the error value used when == comparing floating point positions
 COMPARE_ERROR = 0.01
@@ -34,6 +36,13 @@ class LineManager:
         self.lineEditing = None # the line that is being placed
         self.prevPos = None # the point on the grid that is being edited
 
+    def setLineEditing(self, line):
+        # print("Line Editing Set to " + str(line) + "called by " + inspect.stack()[1][3])
+        self.lineEditing = line
+        return 0
+
+    def getLineEditing(self):
+        return self.lineEditing
 
     def updateLines(self) -> None:
         pass
@@ -45,10 +54,10 @@ class LineManager:
         for line in self.lines:
             line.renderLine(window_surface, gridOffset)
 
-    # determine if a line would cross an existing line, ***currently NOT WORKING, IP***
+    # determine if a line would cross an existing line, ***currently NOT WORKING, in-progress!***
     def crosses(self, prev:tuple, curr:tuple) -> bool:
-        print("Prev: " + str(prev))
-        print("Curr: " + str(curr))
+        # print("Prev: " + str(prev))
+        # print("Curr: " + str(curr))
         for line in self.lines:
             for i in range(len(line.path)-1):
                 """
@@ -87,7 +96,8 @@ class LineManager:
                             return True
 
                 else:
-                    print("Error: line is diagonal, somehow reached crosses().")
+                    pass
+                    # print("Error: line is diagonal, somehow reached crosses().")
 
                 # TODO: determine if a line would cross (overlap, just not on endpoints, on actual line)
                 #   if it is in the *same* direction as an existing line
@@ -98,34 +108,31 @@ class LineManager:
 
     # add line. returns true if valid placement, false if placement failed
     # if a line is currently being added to, instead adds a point to that line
+    
     def addLine(self, pos: tuple) -> bool:
-        # make sure paramaters are correct
-        t = pos[1] + pos[2]
-        try:
-            t = pos[3]
-            print("Exception: too many elements in tuple argument, should be 2")
-            return -1
-        except:
-            pass
-
         # print("Line editing: " + str(self.lineEditing))
         # print("PrevPos: " + str(self.prevPos))
         # if there is already a line, (and not line we are editing rn) return
         overlapping = self.getLineAt(pos)
         # if overlapping and not diagonal
         if overlapping and (self.prevPos[0] == pos[0] or self.prevPos[1] == pos[1]): 
-            # user clicked back on start line, finish line
+            # user clicked back on start line, finish and complete line
             if overlapping == self.lineEditing:
                 self.completeLine(pos)
-         
+
+        elif overlapping and not (self.prevPos[0] == pos[0] or self.prevPos[1] == pos[1]): 
+            # user clicked back on start line
+            if overlapping == self.lineEditing:
+                self.setLineEditing(None)
+        
         # if there is no line being edited right now, place new line and set as line to edit.
-        if self.lineEditing is None:
+        elif self.lineEditing is None:
             # print("LineEditing is none")
             line = Line(pos, self.gridOffset)
             self.lines.append(line)
             self.prevPos = pos
             # print("PrevPos assigned: " + str(self.prevPos))
-            self.lineEditing = line
+            self.setLineEditing(line)
             return 0
 
         # if the new point wouldn't be diagonal AND if the new line wouldn't overlap, then append point to line
@@ -136,18 +143,21 @@ class LineManager:
             return 0
 
         else:
-            print("Tried to place a diagonal or crossed line.")
+            # print("Tried to place a diagonal or crossed line.")
             return -1
 
 
     # called to complete the placement of a line
     # if pos is equal to the start pos of the line, mark the line as closed
-    def completeLine(self, pos: tuple):
+    def completeLine(self, pos: tuple, testing:bool = None) -> int:
         startPoint = self.lineEditing.getPathScreenSpace(self.gridOffset)[0]
         if startPoint == pos:
             self.lineEditing.lineIsClosed = True
-
-        self.lineEditing = None
+            flag = 0
+        else:
+            flag = -1
+        self.setLineEditing(None)
+        return flag
     
 
     # checks for if a point on a line is already occupying a space
@@ -236,6 +246,7 @@ class Line:
 
     # adds a point to the line path from a tuple
     def addPoint(self, point: tuple) -> None:
+        assert type(point) == tuple
         self.path.append(Point(point))
 
 
@@ -280,11 +291,14 @@ class Line:
 
     
     # deletes a point from the line that is at a worldspace position "pos"
-    def deletePoint(self, pos: tuple, gridOffset: tuple):
+    def deletePoint(self, pos: tuple, gridOffset: tuple) -> bool:
         p = self.worldToLineSpace(pos, gridOffset)
         for point in self.path:
             if p == point.position:
                 self.path.remove(point)
+                return True
+        
+        return False
 
 
     # returns the path converted into screenspace coordinates as tuples (grid ofset taken into account)

@@ -1,3 +1,4 @@
+# FOR UNIT TESTS commented line 34
 # This file contains all of the classes relating to Tools and placement
 # so, the toolbar will recieve a click and say "selected_tool = LineDrawer()" for example
 
@@ -30,7 +31,11 @@ class Tool():
     # performs tool action. overridden by children. returns success or failure
     # tools should only ever need to talk to the LineManager and UI elements
     def clickAction(self, lineManager: LineManager, toolbar: Toolbar, sidebar: Sidebar) -> bool:
-        print("default tool action")
+        if str(type(lineManager)) != "<class 'line.LineManager'>" or \
+            str(type(sidebar)) != "<class 'sidebar.Sidebar'>" or \
+                str(type(toolbar)) != "<class 'toolbar.Toolbar'>": 
+            raise TypeError
+        # print("default tool action")
         return True
     
     
@@ -48,6 +53,7 @@ class Tool():
             r.x = self.x - r.width
             r.y = self.y - r.height
             window_surface.blit(self.cursor_image, r)
+        return 0
     
 
     # called by child to load up and set the cursor image of the tool
