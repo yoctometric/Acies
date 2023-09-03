@@ -1,4 +1,5 @@
-# Acies
+# Acies  
+This is an unfinished class project.  
 A sound game for kids where a point will follow a line until it
 hits a corner. Upon hitting the corner, the game will make a sound and then the point will
 proceed down the intersecting line. The pitch, volume, and quality of the sound created depends
